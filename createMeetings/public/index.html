@@ -89,24 +89,24 @@
   </div>
 </div>
 <div class="col-md-6" style="margin-bottom:15%;margin-top:1%">
-  <div>
+  <div class="form-group">
     <label>Tecnología:</label>
     <div>
       <div class="checkbox">
         <label>
-          <input type="checkbox" id="ice3" value="Con hielo">
+          <input type="checkbox" id="ice3" value="video">
           Video Beam
         </label>
       </div>  
       <div class="checkbox">
         <label>
-          <input type="checkbox" id="water" value="Con agua">
+          <input type="checkbox" id="water" value="cornetas">
           Cornetas
         </label>
       </div> 
       <div class="checkbox">
         <label>
-          <input type="checkbox" id="soda" value="Con soda">
+          <input type="checkbox" id="soda" value="apuntador">
           Apuntador
         </label>
       </div>
@@ -114,39 +114,39 @@
   </div>
   <div class="form-group" style="clear:both;">
     <label>Otros:</label>
-    <textarea class="form-control" rows="2" style="width:60%;" placeholder="Ingrese comentario..." id="alcol-comment"></textarea>
+    <textarea class="form-control" rows="2" style="width:60%;" placeholder="Ingrese comentario..." id="otros"></textarea>
   </div>
   <br>
-  <div>
+  <div class="form-group">
     <label>Materiales POP:</label>
     <div>
       <div class="checkbox">
         <label>
-          <input type="checkbox" id="ice3" value="Con hielo">
+          <input type="checkbox" id="ice3" value="brochures">
           Brochure Soutec
         </label>
       </div>  
       <div class="checkbox">
         <label>
-          <input type="checkbox" id="water" value="Con agua">
+          <input type="checkbox" id="water" value="brochurep">
           Brochure Proyecto U
         </label>
       </div> 
       <div class="checkbox">
         <label>
-          <input type="checkbox" id="soda" value="Con soda">
+          <input type="checkbox" id="soda" value="cuadernos">
           Cuadernos Soutec
         </label>
       </div>
       <div class="checkbox">
         <label>
-          <input type="checkbox" id="soda" value="Con soda">
+          <input type="checkbox" id="soda" value="boligrafos">
           Bolígrafos
         </label>
       </div>
       <div class="checkbox">
         <label>
-          <input type="checkbox" id="soda" value="Con soda">
+          <input type="checkbox" id="soda" value="revista">
           Revistas
         </label>
       </div>
@@ -178,48 +178,6 @@
 <!-- ###################################################################################################### -->
 
 <!-- ###################################################################################################### -->
-<!-- #######################################  Modal 2 ##################################################### -->
-<!-- ###################################################################################################### -->
-<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel" style="color: #000;">Dashboard</h4>
-      </div>
-      <div class="modal-body" id="user-body2">
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- ###################################################################################################### -->
-<!-- ###################################################################################################### -->
-
-<!-- ###################################################################################################### -->
-<!-- #####################################  Modal Cliente ################################################# -->
-<!-- ###################################################################################################### -->
-<div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel" style="color: #000;">Confirmar borrado</h4>
-      </div>
-      <div id="" class="confirm">¿Estás seguro que deseas eliminar esta persona?</div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="app.delUser();">Sí</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- ###################################################################################################### -->
-<!-- ###################################################################################################### -->
-
-<!-- ###################################################################################################### -->
 <!-- #####################################  Modal Cliente ################################################# -->
 <!-- ###################################################################################################### -->
 <div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -242,50 +200,6 @@
 <!-- ###################################################################################################### -->
 <!-- #####################################  Modal Cliente ################################################# -->
 <!-- ###################################################################################################### -->
-<div class="modal fade" id="myModal5" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" style="color: #000;">Histórico de clientes</h4>
-      </div>
-      <div id="menu-options"></div>
-      <!-- <div id="mymeets" class="modal-body"></div> -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- ###################################################################################################### -->
-<!-- ###################################################################################################### -->
-
-<!-- ###################################################################################################### -->
-<!-- #####################################  Modal Cliente ################################################# -->
-<!-- ###################################################################################################### -->
-<div class="modal fade" id="myModal6" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel" style="color: #000;">Confirmar borrado</h4>
-      </div>
-      <div class="modal-body">
-        <div id="" class="confirmmeet">¿Estás seguro que deseas eliminar esta reunión?</div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="app.delMeeting();">Sí</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- ###################################################################################################### -->
-<!-- ###################################################################################################### -->
-
-<!-- ###################################################################################################### -->
-<!-- #####################################  Modal Cliente ################################################# -->
-<!-- ###################################################################################################### -->
 <div class="modal fade" id="myModal7" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -294,63 +208,6 @@
         <h4 class="modal-title" id="myModalLabel" style="color: #000;">Clientes</h4>
       </div>
       <div id="menu-clients" style="padding: 3%;font-size:15px;"></div>
-    </div>
-  </div>
-</div>
-<!-- ###################################################################################################### -->
-<!-- ###################################################################################################### -->
-
-<!-- ###################################################################################################### -->
-<!-- #####################################  Modal Empresa ################################################# -->
-<!-- ###################################################################################################### -->
-<div class="modal fade" id="myModal8" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel" style="color: #000;">Empresa</h4>
-      </div>
-      <div id="clients"></div>
-    </div>
-  </div>
-</div>
-<!-- ###################################################################################################### -->
-<!-- ###################################################################################################### -->
-
-<!-- ###################################################################################################### -->
-<!-- #####################################  Modal Cliente ################################################# -->
-<!-- ###################################################################################################### -->
-<div class="modal fade" id="myModal9" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" style="color: #000;">Pedidos de hoy</h4>
-      </div>
-      <div id="orders" class="modal-body"></div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- ###################################################################################################### -->
-<!-- ###################################################################################################### -->
-
-<!-- ###################################################################################################### -->
-<!-- #####################################  Modal Cliente ################################################# -->
-<!-- ###################################################################################################### -->
-<div class="modal fade" id="myModal10" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" style="color: #000;">Reuniones programadas</h4>
-      </div>
-      <div id="mymeets" class="modal-body"></div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-      </div>
     </div>
   </div>
 </div>
@@ -392,7 +249,7 @@
           </div>
           <div class="form-group">
             <label>Comentarios (Religión,Alergias,etc):</label>
-            <textarea class="form-control" rows="2" style="width:82%" placeholder="Ingrese comentario..." id="alcol-comment"></textarea>
+            <textarea class="form-control" rows="2" style="width:82%" placeholder="Ingrese comentario..." id="comment"></textarea>
           </div>
         </div>
       </div>
@@ -406,6 +263,66 @@
 <!-- ###################################################################################################### -->
 <!-- ###################################################################################################### -->
 
+<!-- ###################################################################################################### -->
+<!-- #####################################  Modal Empresa ################################################# -->
+<!-- ###################################################################################################### -->
+<div class="modal fade" id="myModal8" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel" style="color: #000;">Empresa</h4>
+      </div>
+      <div id="clients"></div>
+    </div>
+  </div>
+</div>
+<!-- ###################################################################################################### -->
+<!-- ###################################################################################################### -->
+
+<!-- ###################################################################################################### -->
+<!-- #####################################  Modal Cliente ################################################# -->
+<!-- ###################################################################################################### -->
+<div class="modal fade" id="myModal6" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel" style="color: #000;">Confirmar borrado</h4>
+      </div>
+      <div class="modal-body">
+        <div id="" class="confirmmeet">¿Estás seguro que deseas eliminar esta reunión?</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="app.delMeeting();">Sí</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ###################################################################################################### -->
+<!-- ###################################################################################################### -->
+
+<!-- ###################################################################################################### -->
+<!-- #####################################  Modal Cliente ################################################# -->
+<!-- ###################################################################################################### -->
+<div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel" style="color: #000;">Confirmar borrado</h4>
+      </div>
+      <div id="" class="confirm">¿Estás seguro que deseas eliminar esta persona?</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="app.delUser();">Sí</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ###################################################################################################### -->
+<!-- ###################################################################################################### -->
 
 <footer>
   <img src="img/cuadritospq.png" height="100px" style="position:fixed;bottom:0;">

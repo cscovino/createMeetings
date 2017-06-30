@@ -30,6 +30,7 @@ var app = {
   	},
 
 	addUser: function(data){
+		debugger;
 		var dato = data.id
 		var args = dato.split("_");
 		$('#invited').attr('value',args[1].split(/(?=[A-Z])/).join(" "));
@@ -191,6 +192,7 @@ var app = {
     	var client = document.getElementById('name-clients').value;
         var name = document.getElementById('name-client').value;
         var email = document.getElementById('email-client').value;
+        var caract = document.getElementById('comment').value;
         var aux = 0;
         for(var key in app.model.clients){
             if (key === client) {
@@ -203,24 +205,25 @@ var app = {
             }
         }
         if (!aux) {
-        	app.saveFirebase(client,name,email);
+        	app.saveFirebase(client,name,email,caract);
         }
         document.getElementById('name-clients').value = '';
         document.getElementById('name-client').value = '';
         document.getElementById('email-client').value = '';
+        document.getElementById('comment').value = '';
     },
 
-	saveFirebase: function(client,name,email){
+	saveFirebase: function(client,name,email,caract){
 		var aux = 0;
 		for(var key in app.model.clients){
 			if (key === client) {
-				firebase.database().ref('clients').child(key).child(name).update({Bebida:[''],Coment:[''],Email:email});
+				firebase.database().ref('clients').child(key).child(name).update({Bebida:[''],Coment:[''],Email:email,Caract:caract});
 				aux = 1;
 				break;
 			}
 		}
 		if (!aux) {
-			firebase.database().ref('clients').child(client).child(name).update({Bebida:[''],Coment:[''],Email:email});
+			firebase.database().ref('clients').child(client).child(name).update({Bebida:[''],Coment:[''],Email:email,Caract:caract});
 		}
 	},
 

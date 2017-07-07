@@ -90,7 +90,7 @@ var app = {
 		users.append(codigo);
 		document.getElementById('guardar-button').disabled = true;
 		document.getElementById('borrar-button').disabled = true;
-		app.modelMeet: {'titulo':'','sala':'','fecha':'','tech':{},'mat':{},'users':[]};
+		app.modelMeet = {'titulo':'','sala':'','fecha':'','tech':{},'mat':{},'users':[]};
 		app.refreshMeetingModal();
 	},
 
@@ -118,7 +118,7 @@ var app = {
 		var codigo = '';
 		codigo += '<label>Invitados para la reunión:</label>';
 		for(var i=0; i<app.modelMeet['users'].length; i++){
-			codigo += '<div class="input-group">';
+			codigo += '<div class="input-group" style="width:62.5%;">';
 				codigo += '<span class="input-group-addon"><img src="img/social.svg" height="20px"></span>';
 				codigo += '<input type="text" class="form-control" value="'+app.modelMeet['users'][i]['Nombre']+'" style="width: 80%;" id="" disabled="">';
 				codigo += '<span id="ocult" style="display: none;" class='+app.modelMeet['users'][i]['Cliente']+'></span>';
@@ -128,7 +128,7 @@ var app = {
 			document.getElementById('guardar-button').disabled = false;
 			document.getElementById('borrar-button').disabled = false;
 		}
-		codigo += '<div class="input-group">';
+		codigo += '<div class="input-group" style="width:62.5%;">';
 			codigo += '<span class="input-group-addon"><img src="img/social.svg" height="20px"></span>';
 			codigo += '<input type="text" class="form-control" placeholder="Invitado" style="width: 80%;" data-toggle="modal" data-target="#myModal7" id="invited">';
 			codigo += '<span class="ocult" style="display: none;"></span>';
@@ -372,6 +372,15 @@ var app = {
 		document.getElementById(opt).value = value
 	},
 
+	login: function(){
+		var mail = document.getElementById('email').value;
+		var pass = document.getElementById('password').value;
+		firebase.auth().signInWithEmailAndPassword(mail,pass).catch(function(error){
+			console.log(error.code);
+			console.log(error.message);
+		});
+	},
+
 }
 
 $('#datepicker').datepicker({
@@ -388,5 +397,21 @@ firebase.initializeApp(app.firebaseConfig);
 firebase.database().ref().on('value', function(snap){
 	if (snap.val() !== null) {
 		app.setSnap(snap.val());
+	}
+});
+
+firebase.auth().signOut().then(function() {
+  // Sign-out successful.
+}).catch(function(error) {
+  // An error happened.
+});
+
+firebase.auth().onAuthStateChanged(function(user){
+	if (user) {
+		document.location.href = 'dashboard.html';
+		console.log(user.email);
+	}
+	else{
+		console.log('User sign out');
 	}
 });

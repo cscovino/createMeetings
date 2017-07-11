@@ -63,6 +63,36 @@ var app = {
   		for(var key in app.model.meetings){
   			if(app.model.meetings[key]['titulo'] === calEvent.title){
   				document.getElementById('room-meet').value = app.model.meetings[key]['sala'];
+	  			if(app.model.meetings[key]['tech']['video']){
+	  				document.getElementById('video').checked = true;
+	  			}
+	  			if(app.model.meetings[key]['tech']['sound']){
+	  				document.getElementById('sound').checked = true;
+	  			}
+	  			if(app.model.meetings[key]['tech']['laser']){
+	  				document.getElementById('laser').checked = true;
+	  			}
+	  			if(app.model.meetings[key]['mat']['brochures']){
+	  				document.getElementById('soutec').checked = true;
+	  				document.getElementById('brochures').value = app.model.meetings[key]['mat']['brochures'];
+	  			}
+	  			if(app.model.meetings[key]['mat']['brochurep']){
+	  				document.getElementById('proyecto').checked = true;
+	  				document.getElementById('brochurep').value = app.model.meetings[key]['mat']['brochurep'];
+	  			}
+	  			if(app.model.meetings[key]['mat']['notebook']){
+	  				document.getElementById('cuadernos').checked = true;
+	  				document.getElementById('notebook').value = app.model.meetings[key]['mat']['notebook'];
+	  			}
+	  			if(app.model.meetings[key]['mat']['pens']){
+	  				document.getElementById('boligrafos').checked = true;
+	  				document.getElementById('pens').value = app.model.meetings[key]['mat']['pens'];
+	  			}
+	  			if(app.model.meetings[key]['mat']['magazine']){
+	  				document.getElementById('revistas').checked = true;
+	  				document.getElementById('magazine').value = app.model.meetings[key]['mat']['magazine'];
+	  			}
+	  			document.getElementById('otros').value = app.model.meetings[key]['tech']['comment'];
   			}
   		}
   		var fecha = end['_i'].toDateString().split(' ');
@@ -101,9 +131,6 @@ var app = {
   		var d = fecha[2];
   		if (m < 10) {
   			m = '0'+m;
-  		}
-  		if (d < 10) {
-  			d = '0'+d;
   		}
   		var upd = m+'-'+d+'-'+fecha[3];
   		$('#datepicker').datepicker('update', upd);
@@ -168,6 +195,20 @@ var app = {
 		document.getElementById('guardar-button').disabled = true;
 		document.getElementById('borrar-button').disabled = true;
 		users.append(codigo);
+		document.getElementById('video').checked = false;
+		document.getElementById('sound').checked = false;
+		document.getElementById('laser').checked = false;
+		document.getElementById('soutec').checked = false;
+		document.getElementById('brochures').value = 0;
+		document.getElementById('proyecto').checked = false;
+		document.getElementById('brochurep').value = 0;
+		document.getElementById('cuadernos').checked = false;
+		document.getElementById('notebook').value = 0;
+		document.getElementById('boligrafos').checked = false;
+		document.getElementById('pens').value = 0;
+		document.getElementById('revistas').checked = false;
+		document.getElementById('magazine').value = 0;
+		document.getElementById('otros').value = '';
 		app.modelMeet = {'titulo':'','sala':'','fecha':'','users':[]};
 		app.refreshMeetingModal();
 	},
@@ -216,10 +257,7 @@ var app = {
 				break;
 			}
 		}
-		console.log(app.modelMeet);
 		app.modelMeet['users'].splice(index,1);
-		console.log(app.modelMeet);
-		console.log(app.model.meetings);
 		app.refreshMeeting();
 		app.refreshMeetingModal();
 	},
@@ -556,6 +594,21 @@ var app = {
     	}
     	catch(err){}
     },
+
+	add: function(opt){
+		var value = document.getElementById(opt).value;
+		value++;
+		document.getElementById(opt).value = value
+	},
+
+	minus: function(opt){
+		var value = document.getElementById(opt).value;
+		value--;
+		if (value < 0) {
+			value = 0;
+		}
+		document.getElementById(opt).value = value
+	},
 
     logout: function(){
     	firebase.auth().signOut().then(function() {

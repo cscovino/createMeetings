@@ -7,6 +7,8 @@ var app = {
 		'titulo':'',
 		'sala':'',
 		'fecha':'',
+		'tech':{},
+		'mat':{},
 		'users':[]
 	},
 
@@ -146,7 +148,6 @@ var app = {
   					if (hora1 === hora2) {
   						app.modelMeet = jQuery.extend(true,{},app.model.meetings[key]);
   						app.refreshMeeting();
-  						app.refreshMeetingModal();
   						break;
   					}
   				}
@@ -183,6 +184,23 @@ var app = {
 
 	delMeet: function(){
 		document.getElementById('title-meet').value = '';
+		document.getElementById('room-meet').value = '';
+		document.getElementById('datepicker').value = '';
+		document.getElementById('video').checked = false;
+		document.getElementById('sound').checked = false;
+		document.getElementById('laser').checked = false;
+		document.getElementById('otros').value = '';
+		document.getElementById('soutec').checked = '';
+		document.getElementById('proyecto').checked = '';
+		document.getElementById('cuadernos').checked = '';
+		document.getElementById('boligrafos').checked = '';
+		document.getElementById('revistas').checked = '';
+		document.getElementById('uno').checked = '';
+		document.getElementById('brochures').value = 0;
+		document.getElementById('brochurep').value = 0;
+		document.getElementById('notebook').value = 0;
+		document.getElementById('pens').value = 0;
+		document.getElementById('magazine').value = 0;
 		var users = $('#info-meet-data');
 		users.html('');
 		var codigo = '';
@@ -192,24 +210,10 @@ var app = {
 			codigo += '<input type="text" class="form-control" placeholder="Invitado" style="width: 80%;" data-toggle="modal" data-target="#myModal7" id="invited">';
 			codigo += '<span class="ocult" style="display: none;"></span>';
 		codigo += '</div><br>';
+		users.append(codigo);
 		document.getElementById('guardar-button').disabled = true;
 		document.getElementById('borrar-button').disabled = true;
-		users.append(codigo);
-		document.getElementById('video').checked = false;
-		document.getElementById('sound').checked = false;
-		document.getElementById('laser').checked = false;
-		document.getElementById('soutec').checked = false;
-		document.getElementById('brochures').value = 0;
-		document.getElementById('proyecto').checked = false;
-		document.getElementById('brochurep').value = 0;
-		document.getElementById('cuadernos').checked = false;
-		document.getElementById('notebook').value = 0;
-		document.getElementById('boligrafos').checked = false;
-		document.getElementById('pens').value = 0;
-		document.getElementById('revistas').checked = false;
-		document.getElementById('magazine').value = 0;
-		document.getElementById('otros').value = '';
-		app.modelMeet = {'titulo':'','sala':'','fecha':'','users':[]};
+		app.modelMeet = {'titulo':'','sala':'','fecha':'','tech':{},'mat':{},'users':[]};
 		app.refreshMeetingModal();
 	},
 
@@ -230,7 +234,6 @@ var app = {
 							if (user === key2) {
 								document.getElementById('myModalLabel4').innerHTML = 'Histórico de '+user;
 								for(var i=0; i<app.model.clients[key][key2]['Bebida'].length; i++){
-									console.log(app.model.clients[key][key2]['Bebida']);
 									codigo += '<tr>';
 										codigo += '<td>'+app.model.clients[key][key2]['Bebida'][i]+'</td>'
 										codigo += '<td>'+app.model.clients[key][key2]['Coment'][i]+'</td>';
@@ -276,7 +279,13 @@ var app = {
 		for(var i=0; i<app.modelMeet['users'].length; i++){
 			codigo += '<div class="input-group">';
 				codigo += '<span class="input-group-addon"><img src="img/social.svg" height="20px"></span>';
-				codigo += '<input type="text" class="form-control" value="'+app.modelMeet['users'][i]['Nombre']+'" style="width: 80%;" id="" disabled="">';
+				if (app.model.clients[app.modelMeet['users'][i]['Cliente']][app.modelMeet['users'][i]['Nombre']]['Caract'] != '') {
+					codigo += '<input type="text" class="form-control" value="'+app.modelMeet['users'][i]['Nombre']+' ('+app.model.clients[app.modelMeet['users'][i]['Cliente']][app.modelMeet['users'][i]['Nombre']]['Caract']+')" style="width: 80%;" id="" disabled="">';
+				}
+				else{
+
+					codigo += '<input type="text" class="form-control" value="'+app.modelMeet['users'][i]['Nombre']+'" style="width: 80%;" id="" disabled="">';
+				}
 				codigo += '<span id="ocult" style="display: none;" class='+app.modelMeet['users'][i]['Cliente']+'></span>';
 			codigo += '</div><br>';
 		}
@@ -302,9 +311,76 @@ var app = {
 	},
 
 	refreshMeetingModal: function(){
+		app.modelMeet['titulo'] = document.getElementById('title-meet').value;
+		app.modelMeet['sala'] = document.getElementById('room-meet').value;
+		app.modelMeet['fecha'] = document.getElementById('datepicker').value;
+		app.modelMeet['fecha'] += ' '+document.getElementById('timepicker').value+' - ';
+		app.modelMeet['fecha'] += document.getElementById('timepicker2').value;
+		app.modelMeet['tech'] = {video:0,sound:0,laser:0,comment:''};
+		app.modelMeet['mat'] = {brochures:0,brochurep:0,notebook:0,pens:0,magazine:0};
+		if (document.getElementById('video').checked) {
+	    	app.modelMeet['tech']['video'] = 1;
+	    }
+	    if (document.getElementById('sound').checked) {
+	    	app.modelMeet['tech']['sound'] = 1;
+	    }
+	    if (document.getElementById('laser').checked) {
+	    	app.modelMeet['tech']['laser'] = 1;
+	    }
+	    if (document.getElementById('soutec').checked) {
+	    	app.modelMeet['mat']['brochures'] = document.getElementById('brochures').value;
+	    }
+	    if (document.getElementById('proyecto').checked) {
+	    	app.modelMeet['mat']['brochurep'] = document.getElementById('brochurep').value;
+	    }
+	    if (document.getElementById('cuadernos').checked) {
+	    	app.modelMeet['mat']['notebook'] = document.getElementById('notebook').value;
+	    }
+	    if (document.getElementById('boligrafos').checked) {
+	    	app.modelMeet['mat']['pens'] = document.getElementById('pens').value;
+	    }
+	    if (document.getElementById('revistas').checked) {
+	    	app.modelMeet['mat']['magazine'] = document.getElementById('magazine').value;
+	    }
+	    if (document.getElementById('uno').checked) {
+	    }
+	    app.modelMeet['tech']['comment'] = document.getElementById('otros').value;
 		var users = $('#user-body');
 		users.html('');
 		var codigo = '<div id="" class="confirmmeet">¿Deseas programar esta reunión?</div><br>';
+			codigo += '<div>Título: '+app.modelMeet['titulo']+'</div>';
+			codigo += '<div>Sala: '+app.modelMeet['sala']+'</div>';
+			codigo += '<div>Fecha: '+app.modelMeet['fecha']+'</div>';
+			codigo += '<div>Tecnología: </div>';
+				if (app.modelMeet['tech']['video']) {
+					codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Video Beam</div>';
+				}
+				if (app.modelMeet['tech']['sound']) {
+					codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cornetas</div>';
+				}
+				if (app.modelMeet['tech']['laser']) {
+					codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Apuntador</div>';
+				}
+				if (app.modelMeet['tech']['comment']) {
+					codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+app.modelMeet['tech']['comment']+'</div>';
+				}
+			codigo += '<div>Materiales POP:</div>';
+				if (app.modelMeet['mat']['brochures']) {
+					codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Brochure Soutec: '+app.modelMeet['mat']['brochures']+'</div>';
+				}
+				if (app.modelMeet['mat']['brochurep']) {
+					codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Brochure Proyecto U: '+app.modelMeet['mat']['brochurep']+'</div>';
+				}
+				if (app.modelMeet['mat']['notebook']) {
+					codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cuadernos Soutec: '+app.modelMeet['mat']['notebook']+'</div>';
+				}
+				if (app.modelMeet['mat']['pens']) {
+					codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bolígrafos: '+app.modelMeet['mat']['pens']+'</div>';
+				}
+				if (app.modelMeet['mat']['magazine']) {
+					codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Revistas: '+app.modelMeet['mat']['magazine']+'</div>';
+				}
+			codigo += '<div>Invitados:</div>';
 			codigo += '<table class="table table-bordered" id="guests">';
 				codigo += '<tbody>';
 					codigo += '<tr>';
@@ -312,7 +388,7 @@ var app = {
 						codigo += '<th>Nombre</th>';
 					codigo += '</tr>';
 				for (var i=0; i<app.modelMeet['users'].length; i++) {
-					codigo += '<tr onclick="app.idConfirm('+app.modelMeet['users'][i]['Cliente'].replace(/ /g,'')+'_'+app.modelMeet['users'][i]['Nombre'].replace(/ /g,'')+');" data-toggle="modal" data-target="#myModal3">';
+					codigo += '<tr onclick="app.idConfirm(this)" id="'+app.modelMeet['users'][i]['Cliente'].replace(' ','-')+'_'+app.modelMeet['users'][i]['Nombre'].replace(' ','-')+'" data-toggle="modal" data-target="#myModal3">';
 						codigo += '<td>'+app.modelMeet['users'][i]['Cliente']+'</td>';
 						codigo += '<td>'+app.modelMeet['users'][i]['Nombre']+'</td>';
 					codigo += '</tr>';

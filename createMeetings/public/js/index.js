@@ -145,7 +145,6 @@ var app = {
 	},
 
 	refreshMeetingModal: function(){
-		debugger;
 		app.modelMeet['titulo'] = document.getElementById('title-meet').value;
 		app.modelMeet['sala'] = document.getElementById('room-meet').value;
 		app.modelMeet['fecha'] = document.getElementById('datepicker').value;

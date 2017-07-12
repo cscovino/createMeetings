@@ -605,7 +605,7 @@ var app = {
     		if (app.model['order']['orders'].length > 0) {
 	            var users = $('#orders');
 	            users.html('');
-	            var codigo = '<table class="table table-bordered id="guests4"';
+	            var codigo = '<table class="table table-bordered" id="guests4">';
 	            codigo += '<tbody>';
 	                codigo += '<tr>';
 	                    codigo += '<th>Nombre</th>';

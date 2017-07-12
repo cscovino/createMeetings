@@ -176,8 +176,6 @@ var app = {
 	    if (document.getElementById('revistas').checked) {
 	    	app.modelMeet['mat']['magazine'] = document.getElementById('magazine').value;
 	    }
-	    if (document.getElementById('uno').checked) {
-	    }
 	    app.modelMeet['tech']['comment'] = document.getElementById('otros').value;
 		var users = $('#user-body');
 		users.html('');

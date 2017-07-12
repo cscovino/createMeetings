@@ -342,8 +342,6 @@ var app = {
 	    if (document.getElementById('revistas').checked) {
 	    	app.modelMeet['mat']['magazine'] = document.getElementById('magazine').value;
 	    }
-	    if (document.getElementById('uno').checked) {
-	    }
 	    app.modelMeet['tech']['comment'] = document.getElementById('otros').value;
 		var users = $('#user-body');
 		users.html('');
@@ -607,7 +605,7 @@ var app = {
     		if (app.model['order']['orders'].length > 0) {
 	            var users = $('#orders');
 	            users.html('');
-	            var codigo = '<table class="table table-bordered"';
+	            var codigo = '<table class="table table-bordered id="guests4"';
 	            codigo += '<tbody>';
 	                codigo += '<tr>';
 	                    codigo += '<th>Nombre</th>';

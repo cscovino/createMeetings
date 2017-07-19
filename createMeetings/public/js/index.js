@@ -161,21 +161,11 @@ var app = {
 	    if (document.getElementById('laser').checked) {
 	    	app.modelMeet['tech']['laser'] = 1;
 	    }
-	    if (document.getElementById('soutec').checked) {
-	    	app.modelMeet['mat']['brochures'] = document.getElementById('brochures').value;
-	    }
-	    if (document.getElementById('proyecto').checked) {
-	    	app.modelMeet['mat']['brochurep'] = document.getElementById('brochurep').value;
-	    }
-	    if (document.getElementById('cuadernos').checked) {
-	    	app.modelMeet['mat']['notebook'] = document.getElementById('notebook').value;
-	    }
-	    if (document.getElementById('boligrafos').checked) {
-	    	app.modelMeet['mat']['pens'] = document.getElementById('pens').value;
-	    }
-	    if (document.getElementById('revistas').checked) {
-	    	app.modelMeet['mat']['magazine'] = document.getElementById('magazine').value;
-	    }
+	    app.modelMeet['mat']['brochures'] = document.getElementById('brochures').value;
+	    app.modelMeet['mat']['brochurep'] = document.getElementById('brochurep').value;
+	    app.modelMeet['mat']['notebook'] = document.getElementById('notebook').value;
+	    app.modelMeet['mat']['pens'] = document.getElementById('pens').value;
+	    app.modelMeet['mat']['magazine'] = document.getElementById('magazine').value;
 	    app.modelMeet['tech']['comment'] = document.getElementById('otros').value;
 		var users = $('#user-body');
 		users.html('');
@@ -197,19 +187,19 @@ var app = {
 					codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+app.modelMeet['tech']['comment']+'</div>';
 				}
 			codigo += '<div>Materiales POP:</div>';
-				if (app.modelMeet['mat']['brochures']) {
+				if (app.modelMeet['mat']['brochures'] != 0) {
 					codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Brochure Soutec: '+app.modelMeet['mat']['brochures']+'</div>';
 				}
-				if (app.modelMeet['mat']['brochurep']) {
+				if (app.modelMeet['mat']['brochurep'] != 0) {
 					codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Brochure Proyecto U: '+app.modelMeet['mat']['brochurep']+'</div>';
 				}
-				if (app.modelMeet['mat']['notebook']) {
+				if (app.modelMeet['mat']['notebook'] != 0) {
 					codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cuadernos Soutec: '+app.modelMeet['mat']['notebook']+'</div>';
 				}
-				if (app.modelMeet['mat']['pens']) {
+				if (app.modelMeet['mat']['pens'] != 0) {
 					codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bolígrafos: '+app.modelMeet['mat']['pens']+'</div>';
 				}
-				if (app.modelMeet['mat']['magazine']) {
+				if (app.modelMeet['mat']['magazine'] != 0) {
 					codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Revistas: '+app.modelMeet['mat']['magazine']+'</div>';
 				}
 			codigo += '<div>Invitados:</div>';
@@ -327,6 +317,8 @@ var app = {
   			}
   		}
 		firebase.database().ref('meetings').push(app.modelMeet);
+		app.delMeet();
+		alert('Reunión guardada');
 	},
 
 	refreshClient: function(dat){

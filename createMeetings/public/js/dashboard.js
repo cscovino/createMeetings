@@ -529,6 +529,8 @@ var app = {
   			}
   		}
 		firebase.database().ref('meetings').push(app.modelMeet);
+		app.delMeet();
+		alert('Reunión guardada');
 	},
 
 	refreshClient: function(dat){

@@ -66,13 +66,6 @@ var app = {
 		document.getElementById('video').checked = false;
 		document.getElementById('sound').checked = false;
 		document.getElementById('laser').checked = false;
-		document.getElementById('otros').value = '';
-		document.getElementById('soutec').checked = '';
-		document.getElementById('proyecto').checked = '';
-		document.getElementById('cuadernos').checked = '';
-		document.getElementById('boligrafos').checked = '';
-		document.getElementById('revistas').checked = '';
-		document.getElementById('uno').checked = '';
 		document.getElementById('brochures').value = 0;
 		document.getElementById('brochurep').value = 0;
 		document.getElementById('notebook').value = 0;
@@ -317,8 +310,8 @@ var app = {
   			}
   		}
 		firebase.database().ref('meetings').push(app.modelMeet);
-		app.delMeet();
 		alert('Reunión guardada');
+		app.delMeet();
 	},
 
 	refreshClient: function(dat){

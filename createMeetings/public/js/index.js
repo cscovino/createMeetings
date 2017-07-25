@@ -35,11 +35,11 @@ var app = {
 		var dato = data.id
 		var args = dato.split("_");
 		$('#invited').attr('value',args[1].split(/(?=[A-Z])/).join(" "));
-		//$('.ocult').attr('id',args[0].split(/(?=[A-Z])/).join(" "));
-		$('.ocult').attr('id',args[0]);
+		$('.ocult').attr('id',args[0].split(/(?=[A-Z])/).join(" "));
 	},
 
 	addClient: function(){
+		debugger;
 		var aux = 0;
 		var type;
 		var user = document.getElementById('invited').value;
@@ -52,14 +52,19 @@ var app = {
 		}
 		if(user){
 			for(var i=0; i<app.modelMeet['users'].length; i++) {
-				if(app.modelMeet['users'][i]['Nombre'] === user && app.modelMeet['users'][i]['Cliente'] === client){
+				if(app.modelMeet['users'][i]['Nombre'] === user && (app.modelMeet['users'][i]['Cliente'] === client || app.modelMeet['users'][i]['Cliente'] === client.replace(' ',''))){
 					alert('Ya se agregó esta persona a la reunión');
 					aux = 1;
 					break;
 				}
 			}
 			if (!aux) {
-				var car = app.model['clients'][client][user]['Caract'];
+				try{
+					var car = app.model['clients'][client][user]['Caract'];
+				}
+				catch(err){
+					var car = app.model['clients'][client.replace(' ','')][user]['Caract'];
+				}
 				app.modelMeet['users'].push({'Nombre':user,'Cliente':client,'Caract':car,'Tipo':type});
 			}
 			app.refreshMeeting();
@@ -83,9 +88,9 @@ var app = {
 		users.html('');
 		var codigo = '';
 		codigo += '<label>Invitados para la reunión:</label>';
-		codigo += '<div class="input-group">';
+		codigo += '<div class="input-group" style="width:62.5%;">';
 			codigo += '<span class="input-group-addon"><img src="img/social.svg" height="20px"></span>';
-			codigo += '<input type="text" class="form-control" placeholder="Invitado" style="width: 80%;" data-toggle="modal" data-target="#myModal7" id="invited">';
+			codigo += '<input type="text" class="form-control" placeholder="Invitado" data-toggle="modal" data-target="#myModal7" id="invited">';
 			codigo += '<span class="ocult" style="display: none;"></span>';
 		codigo += '</div><br>';
 		users.append(codigo);
@@ -121,7 +126,7 @@ var app = {
 		for(var i=0; i<app.modelMeet['users'].length; i++){
 			codigo += '<div class="input-group" style="width:62.5%;">';
 				codigo += '<span class="input-group-addon"><img src="img/social.svg" height="20px"></span>';
-				codigo += '<input type="text" class="form-control" value="'+app.modelMeet['users'][i]['Nombre']+'" style="width: 80%;" id="" disabled="">';
+				codigo += '<input type="text" class="form-control" value="'+app.modelMeet['users'][i]['Nombre']+'" id="" disabled="">';
 				codigo += '<span id="ocult" style="display: none;" class='+app.modelMeet['users'][i]['Cliente']+'></span>';
 			codigo += '</div><br>';
 		}
@@ -131,7 +136,7 @@ var app = {
 		}
 		codigo += '<div class="input-group" style="width:62.5%;">';
 			codigo += '<span class="input-group-addon"><img src="img/social.svg" height="20px"></span>';
-			codigo += '<input type="text" class="form-control" placeholder="Invitado" style="width: 80%;" data-toggle="modal" data-target="#myModal7" id="invited">';
+			codigo += '<input type="text" class="form-control" placeholder="Invitado" data-toggle="modal" data-target="#myModal7" id="invited">';
 			codigo += '<span class="ocult" style="display: none;"></span>';
 		codigo += '</div><br>';
 		users.append(codigo);	

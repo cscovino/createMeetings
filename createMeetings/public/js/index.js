@@ -35,13 +35,21 @@ var app = {
 		var dato = data.id
 		var args = dato.split("_");
 		$('#invited').attr('value',args[1].split(/(?=[A-Z])/).join(" "));
-		$('.ocult').attr('id',args[0].split(/(?=[A-Z])/).join(" "));
+		//$('.ocult').attr('id',args[0].split(/(?=[A-Z])/).join(" "));
+		$('.ocult').attr('id',args[0]);
 	},
 
 	addClient: function(){
 		var aux = 0;
+		var type;
 		var user = document.getElementById('invited').value;
 		var client = document.getElementsByClassName('ocult')[0].id;
+		opts = document.getElementsByClassName('options');
+		for(var i=0; i<opts.length; i++){
+			if (opts[i].checked) {
+				type = opts[i].id;
+			}
+		}
 		if(user){
 			for(var i=0; i<app.modelMeet['users'].length; i++) {
 				if(app.modelMeet['users'][i]['Nombre'] === user && app.modelMeet['users'][i]['Cliente'] === client){
@@ -52,7 +60,7 @@ var app = {
 			}
 			if (!aux) {
 				var car = app.model['clients'][client][user]['Caract'];
-				app.modelMeet['users'].push({'Nombre':user,'Cliente':client,'Caract':car});
+				app.modelMeet['users'].push({'Nombre':user,'Cliente':client,'Caract':car,'Tipo':type});
 			}
 			app.refreshMeeting();
 			app.refreshMeetingModal();
@@ -310,6 +318,62 @@ var app = {
   			}
   		}
 		firebase.database().ref('meetings').push(app.modelMeet);
+		var color = 0;
+		var codigo = '<div>Título: '+app.modelMeet['titulo']+'</div>';
+			codigo += '<div>Sala: '+app.modelMeet['sala']+'</div>';
+			codigo += '<div>Fecha: '+app.modelMeet['fecha']+'</div>';
+			codigo += '<div>Tecnología: </div>';
+				if (app.modelMeet['tech']['video']) {
+					codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Video Beam</div>';
+				}
+				if (app.modelMeet['tech']['sound']) {
+					codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cornetas</div>';
+				}
+				if (app.modelMeet['tech']['laser']) {
+					codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Apuntador</div>';
+				}
+				if (app.modelMeet['tech']['comment']) {
+					codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+app.modelMeet['tech']['comment']+'</div>';
+				}
+			codigo += '<div>Materiales POP:</div>';
+				if (app.modelMeet['mat']['brochures'] != 0) {
+					codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Brochure Soutec: '+app.modelMeet['mat']['brochures']+'</div>';
+				}
+				if (app.modelMeet['mat']['brochurep'] != 0) {
+					codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Brochure Proyecto U: '+app.modelMeet['mat']['brochurep']+'</div>';
+				}
+				if (app.modelMeet['mat']['notebook'] != 0) {
+					codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cuadernos Soutec: '+app.modelMeet['mat']['notebook']+'</div>';
+				}
+				if (app.modelMeet['mat']['pens'] != 0) {
+					codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bolígrafos: '+app.modelMeet['mat']['pens']+'</div>';
+				}
+				if (app.modelMeet['mat']['magazine'] != 0) {
+					codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Revistas: '+app.modelMeet['mat']['magazine']+'</div>';
+				}
+			codigo += '<div>Invitados:</div>';
+			codigo += '<table style="color:#383838;">';
+				codigo += '<tbody>';
+					codigo += '<tr>';
+						codigo += '<th style="background:#395062;color:#fff;">Empresa</th>';
+						codigo += '<th style="background:#395062;color:#fff;">Nombre</th>';
+					codigo += '</tr>';
+				for (var i=0; i<app.modelMeet['users'].length; i++) {
+					if (color) {
+					codigo += '<tr style="background:#eaeaea;">';
+						color = 0;	
+					}
+					else{
+					codigo += '<tr>';
+						color = 1;
+					}
+						codigo += '<td>'+app.modelMeet['users'][i]['Cliente']+'</td>';
+						codigo += '<td>'+app.modelMeet['users'][i]['Nombre']+'</td>';
+					codigo += '</tr>';
+				}
+				codigo += '</tbody>';
+			codigo += '</table>';
+		emailjs.send("gmail","meetings",{message_html: codigo});
 		alert('Reunión guardada');
 		app.delMeet();
 	},
@@ -387,6 +451,8 @@ firebase.auth().signOut().then(function() {
 }).catch(function(error) {
   // An error happened.
 });
+
+emailjs.init("user_E6w9y3AjySOWMQGes6bIy");
 
 firebase.auth().onAuthStateChanged(function(user){
 	if (user) {

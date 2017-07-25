@@ -93,7 +93,7 @@
     <div class="input-group">
       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal12">Persona nueva</button>
       <button id="borrar-button" type="button" class="btn btn-default" onclick="app.delMeet();" disabled="">Borrar</button>
-      <button type="button" class="btn btn-primary" onclick="app.addClient();">Agregar</button>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal13">Agregar</button>
       <button id="guardar-button" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" disabled="" onclick="app.refreshMeetingModal();">Guardar</button>
     </div>
   </div>
@@ -132,7 +132,6 @@
       <div>
         <div class="checkbox">
           <label>
-            <input type="checkbox" id="soutec" value="Brochure Soutec">
             Brochure Soutec
           </label>
           <input type="text" value="0" id="brochures" size="2" style="margin-left:8%;">
@@ -141,7 +140,6 @@
         </div>  
         <div class="checkbox">
           <label>
-            <input type="checkbox" id="proyecto" value="Brochure Proyecto U">
             Brochure Proyecto U
           </label>
           <input type="text" value="0" id="brochurep" size="2" style="margin-left:3.5%;">
@@ -150,7 +148,6 @@
         </div> 
         <div class="checkbox">
           <label>
-            <input type="checkbox" id="cuadernos" value="Cuadernos Soutec">
             Cuadernos Soutec
           </label>
           <input type="text" value="0" id="notebook" size="2" style="margin-left:6%;">
@@ -159,7 +156,6 @@
         </div>
         <div class="checkbox">
           <label>
-            <input type="checkbox" id="boligrafos" value="Bolígrafos">
             Bolígrafos
           </label>
           <input type="text" value="0" id="pens" size="2" style="margin-left:15%;">
@@ -168,19 +164,12 @@
         </div>
         <div class="checkbox">
           <label>
-            <input type="checkbox" id="revistas" value="Revistas">
             Revistas
           </label>
           <input type="text" value="0" id="magazine" size="2" style="margin-left:16.8%;">
           <i class="fa fa-fw fa-plus" onclick="app.add('magazine');"></i>
           <i class="fa fa-fw fa-minus" onclick="app.minus('magazine');"></i>
         </div>
-        <!-- <div class="checkbox">
-          <label>
-            <input type="checkbox" id="uno" value="Uno">
-            Uno para cada invitado
-          </label>
-        </div> -->
       </div>
     </div>
   </div>
@@ -434,6 +423,30 @@
 <!-- ###################################################################################################### -->
 <!-- ###################################################################################################### -->
 
+<!-- ###################################################################################################### -->
+<!-- #####################################  Modal Gaseosa ################################################# -->
+<!-- ###################################################################################################### -->
+<div class="modal fade" id="myModal13" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel" style="color: #000;">Tipo de cliente</h4>
+      </div>
+      <div class="modal-body">
+        <div style="margin-left:5%;">
+          <div><label><input type="radio" id="vip" name="optionsRadios" class="options">&nbsp;&nbsp;V.I.P.</label></div>
+          <div><label><input type="radio" id="regular" name="optionsRadios" class="options">&nbsp;&nbsp;Regular</label></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="app.addClient();">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ###################################################################################################### -->
+<!-- ###################################################################################################### -->
 <footer>
   <img src="img/cuadritospq.png" height="100px" style="position:fixed;bottom:0;">
   <img src="img/cuadritospq.png" height="100px" style="position:fixed;bottom:0;left:330px;">

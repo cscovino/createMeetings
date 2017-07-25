@@ -74,26 +74,11 @@ var app = {
 	  			if(app.model.meetings[key]['tech']['laser']){
 	  				document.getElementById('laser').checked = true;
 	  			}
-	  			if(app.model.meetings[key]['mat']['brochures']){
-	  				document.getElementById('soutec').checked = true;
-	  				document.getElementById('brochures').value = app.model.meetings[key]['mat']['brochures'];
-	  			}
-	  			if(app.model.meetings[key]['mat']['brochurep']){
-	  				document.getElementById('proyecto').checked = true;
-	  				document.getElementById('brochurep').value = app.model.meetings[key]['mat']['brochurep'];
-	  			}
-	  			if(app.model.meetings[key]['mat']['notebook']){
-	  				document.getElementById('cuadernos').checked = true;
-	  				document.getElementById('notebook').value = app.model.meetings[key]['mat']['notebook'];
-	  			}
-	  			if(app.model.meetings[key]['mat']['pens']){
-	  				document.getElementById('boligrafos').checked = true;
-	  				document.getElementById('pens').value = app.model.meetings[key]['mat']['pens'];
-	  			}
-	  			if(app.model.meetings[key]['mat']['magazine']){
-	  				document.getElementById('revistas').checked = true;
-	  				document.getElementById('magazine').value = app.model.meetings[key]['mat']['magazine'];
-	  			}
+  				document.getElementById('brochures').value = app.model.meetings[key]['mat']['brochures'];
+  				document.getElementById('brochurep').value = app.model.meetings[key]['mat']['brochurep'];
+  				document.getElementById('notebook').value = app.model.meetings[key]['mat']['notebook'];
+  				document.getElementById('pens').value = app.model.meetings[key]['mat']['pens'];
+  				document.getElementById('magazine').value = app.model.meetings[key]['mat']['magazine'];
 	  			document.getElementById('otros').value = app.model.meetings[key]['tech']['comment'];
   			}
   		}
@@ -159,13 +144,21 @@ var app = {
 		var dato = data.id
 		var args = dato.split("_");
 		$('#invited').attr('value',args[1].split(/(?=[A-Z])/).join(" "));
-		$('.ocult').attr('id',args[0].split(/(?=[A-Z])/).join(" "));
+		//$('.ocult').attr('id',args[0].split(/(?=[A-Z])/).join(" "));
+		$('.ocult').attr('id',args[0]);
 	},
 
 	addClient: function(){
 		var aux = 0;
+		var type;
 		var user = document.getElementById('invited').value;
 		var client = document.getElementsByClassName('ocult')[0].id;
+		opts = document.getElementsByClassName('options');
+		for(var i=0; i<opts.length; i++){
+			if (opts[i].checked) {
+				type = opts[i].id;
+			}
+		}
 		if(user){
 			for(var i=0; i<app.modelMeet['users'].length; i++) {
 				if(app.modelMeet['users'][i]['Nombre'] === user && app.modelMeet['users'][i]['Cliente'] === client){
@@ -175,7 +168,8 @@ var app = {
 				}
 			}
 			if (!aux) {
-				app.modelMeet['users'].push({'Nombre':user,'Cliente':client});
+				var car = app.model['clients'][client][user]['Caract'];
+				app.modelMeet['users'].push({'Nombre':user,'Cliente':client,'Caract':car,'Tipo':type});
 			}
 			app.refreshMeeting();
 			app.refreshMeetingModal();
@@ -320,21 +314,11 @@ var app = {
 	    if (document.getElementById('laser').checked) {
 	    	app.modelMeet['tech']['laser'] = 1;
 	    }
-	    if (document.getElementById('soutec').checked) {
-	    	app.modelMeet['mat']['brochures'] = document.getElementById('brochures').value;
-	    }
-	    if (document.getElementById('proyecto').checked) {
-	    	app.modelMeet['mat']['brochurep'] = document.getElementById('brochurep').value;
-	    }
-	    if (document.getElementById('cuadernos').checked) {
-	    	app.modelMeet['mat']['notebook'] = document.getElementById('notebook').value;
-	    }
-	    if (document.getElementById('boligrafos').checked) {
-	    	app.modelMeet['mat']['pens'] = document.getElementById('pens').value;
-	    }
-	    if (document.getElementById('revistas').checked) {
-	    	app.modelMeet['mat']['magazine'] = document.getElementById('magazine').value;
-	    }
+    	app.modelMeet['mat']['brochures'] = document.getElementById('brochures').value;
+    	app.modelMeet['mat']['brochurep'] = document.getElementById('brochurep').value;
+    	app.modelMeet['mat']['notebook'] = document.getElementById('notebook').value;
+    	app.modelMeet['mat']['pens'] = document.getElementById('pens').value;
+    	app.modelMeet['mat']['magazine'] = document.getElementById('magazine').value;
 	    app.modelMeet['tech']['comment'] = document.getElementById('otros').value;
 		var users = $('#user-body');
 		users.html('');

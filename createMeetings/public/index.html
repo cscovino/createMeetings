@@ -18,7 +18,7 @@
     <link rel="stylesheet" type="text/css" href="css/timepicker.min.css" />
     <link rel="stylesheet" type="text/css" href="css/index.css" />
     <link href="img/favicon.ico" rel="shortcut icon"/>
-    <title>Menú de Bebidas</title>
+    <title>Soutec Meetings</title>
 </head>
 
 <body>
@@ -26,7 +26,7 @@
     <a class="logo" style="margin-left:1.5%;"><img src="img/soutec.png" height="30px"></a>
     <nav class="navbar navbar-static-top">
       <div>
-        <h1 style="margin-top:0.5%;margin-left:26%;float:left;">V.I.P. Meetings</h1>
+        <h1 style="margin-top:0.5%;margin-left:26%;float:left;">Soutec Meetings</h1>
       </div>
       <div class="navbar-custom-menu">
         <a href="" class="header-button" data-toggle="modal" data-target="#myModal10"><img src="img/settings.png"></a>
@@ -87,7 +87,7 @@
     <div class="input-group">
       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal12">Persona nueva</button>
       <button id="borrar-button" type="button" class="btn btn-default" onclick="app.delMeet();" disabled="">Borrar</button>
-      <button type="button" class="btn btn-primary" onclick="app.addClient();">Agregar</button>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal9">Agregar</button>
       <button id="guardar-button" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" disabled="" onclick="app.refreshMeetingModal();">Guardar</button>
     </div>
   </div>
@@ -376,6 +376,31 @@
 <!-- ###################################################################################################### -->
 <!-- ###################################################################################################### -->
 
+<!-- ###################################################################################################### -->
+<!-- #####################################  Modal Gaseosa ################################################# -->
+<!-- ###################################################################################################### -->
+<div class="modal fade" id="myModal9" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel" style="color: #000;">Tipo de cliente</h4>
+      </div>
+      <div class="modal-body">
+        <div style="margin-left:5%;">
+          <div><label><input type="radio" id="vip" name="optionsRadios" class="options">&nbsp;&nbsp;V.I.P.</label></div>
+          <div><label><input type="radio" id="regular" name="optionsRadios" class="options">&nbsp;&nbsp;Regular</label></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="app.addClient();">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ###################################################################################################### -->
+<!-- ###################################################################################################### -->
+
 <footer>
   <img src="img/cuadritospq.png" height="100px" style="position:fixed;bottom:0;">
   <img src="img/cuadritospq.png" height="100px" style="position:fixed;bottom:0;left:330px;">
@@ -392,6 +417,7 @@
 <script type="text/javascript" src="js/bootstrap-timepicker.js"></script>
 <script type="text/javascript" src="js/fullcalendar.min.js"></script>
 <script type="text/javascript" src="js/firebase.js"></script>
+<script type="text/javascript" src="js/email.min.js"></script>
 <script type="text/javascript" src="js/index.js"></script>
 
 </html>

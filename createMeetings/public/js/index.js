@@ -39,7 +39,6 @@ var app = {
 	},
 
 	addClient: function(){
-		debugger;
 		var aux = 0;
 		var type;
 		var user = document.getElementById('invited').value;

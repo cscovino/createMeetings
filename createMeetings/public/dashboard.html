@@ -26,13 +26,13 @@
     <a class="logo" style="margin-left:1.5%;"><img src="img/soutec.png" height="30px"></a>
     <nav class="navbar navbar-static-top">
       <div class="navbar-custom-menu">
-        <a href="" class="header-button" data-toggle="modal" data-target="#myModal9" id="user-button"><img src="img/list.svg" height="25px"></a>
+        <a href="" class="header-button" data-toggle="modal" data-target="#myModal9" id="user-button" title="Pedidos"><img src="img/list.svg" height="25px"></a>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="" class="header-button" data-toggle="modal" data-target="#myModal5" id="user-button"><img src="img/people.svg" height="45px"></a>
+        <a href="" class="header-button" data-toggle="modal" data-target="#myModal5" id="user-button" title="Clientes"><img src="img/people.svg" height="45px"></a>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="" class="header-button" data-toggle="modal" data-target="#myModal10"><img src="img/calendar.png" height="30px"></a>
+        <a href="" class="header-button" data-toggle="modal" data-target="#myModal10" title="Reuniones"><img src="img/calendar.png" height="30px"></a>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="" class="header-button" data-toggle="modal" data-target="#myModal11"><img src="img/settings.png"></a>
+        <a href="" class="header-button" data-toggle="modal" data-target="#myModal11" title="Cerrar Sesión"><img src="img/sign.png"></a>
       </div>
     </nav>
 	</header>
@@ -45,6 +45,21 @@
     <div class="form-group" style="width: 80%;">
       <label>Título de la reunión:</label>
       <input type="text" class="form-control" placeholder="Coloque el título de la reunión..." style="width:100%;" id="title-meet" value="">
+    </div>
+    <div class="form-group" style="width: 62.5%;">
+      <label>Tipo de reunión:</label>
+        <div>
+          <label>
+            <input type="radio" id="vipmeet" value="si" name="optionsmeet">
+            V.I.P.
+          </label>
+        </div> 
+        <div>
+          <label>
+            <input type="radio" id="regmeet" value="si" name="optionsmeet">
+            Regular
+          </label>
+        </div> 
     </div>
     <div class="form-group" style="width: 80%;">
       <label>Sala:</label>
@@ -93,7 +108,6 @@
     <div class="input-group">
       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal12">Persona nueva</button>
       <button id="borrar-button" type="button" class="btn btn-default" onclick="app.delMeet();" disabled="">Borrar</button>
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal13">Agregar</button>
       <button id="guardar-button" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" disabled="" onclick="app.refreshMeetingModal();">Guardar</button>
     </div>
   </div>
@@ -118,6 +132,12 @@
           <label>
             <input type="checkbox" id="laser" value="Apuntador">
             Apuntador
+          </label>
+        </div>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" id="vc" value="Video Conf">
+            Equipos de video conferencia
           </label>
         </div>
       </div>
@@ -170,6 +190,28 @@
           <i class="fa fa-fw fa-plus" onclick="app.add('magazine');"></i>
           <i class="fa fa-fw fa-minus" onclick="app.minus('magazine');"></i>
         </div>
+      </div>
+    </div>
+    <br>
+    <div class="form-group">
+      <label>Se requiere comida:</label>
+      <div>
+        <div>
+          <label>
+            <input type="radio" id="sifood" value="si" name="optionsfood" onclick="document.getElementById('detalles').style.display = 'block';" class="options-food">
+            Sí
+          </label>
+        </div>  
+        <div>
+          <label>
+            <input type="radio" id="nofood" value="no" name="optionsfood" onclick="document.getElementById('detalles').style.display = 'none';" class="options-food">
+            No
+          </label>
+        </div> 
+      </div>
+      <div class="form-group" style="clear:both;display:none;" id="detalles">
+        <label>Indique detalles de interés:</label>
+        <textarea class="form-control" rows="2" style="width:60%;" placeholder="Ingrese comentario..." id="comida"></textarea>
       </div>
     </div>
   </div>
@@ -360,27 +402,6 @@
 <!-- ###################################################################################################### -->
 
 <!-- ###################################################################################################### -->
-<!-- #####################################  Modal Cliente ################################################# -->
-<!-- ###################################################################################################### -->
-<div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel" style="color: #000;">Confirmar borrado</h4>
-      </div>
-      <div id="" class="confirm">¿Estás seguro que deseas eliminar esta persona?</div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="app.delUser();">Sí</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- ###################################################################################################### -->
-<!-- ###################################################################################################### -->
-
-<!-- ###################################################################################################### -->
 <!-- #######################################  Modal ####################################################### -->
 <!-- ###################################################################################################### -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -424,23 +445,19 @@
 <!-- ###################################################################################################### -->
 
 <!-- ###################################################################################################### -->
-<!-- #####################################  Modal Gaseosa ################################################# -->
+<!-- #####################################  Modal Cliente ################################################# -->
 <!-- ###################################################################################################### -->
-<div class="modal fade" id="myModal13" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel" style="color: #000;">Tipo de cliente</h4>
+        <h4 class="modal-title" id="myModalLabel" style="color: #000;">Confirmar borrado</h4>
       </div>
-      <div class="modal-body">
-        <div style="margin-left:5%;">
-          <div><label><input type="radio" id="vip" name="optionsRadios" class="options">&nbsp;&nbsp;V.I.P.</label></div>
-          <div><label><input type="radio" id="regular" name="optionsRadios" class="options">&nbsp;&nbsp;Regular</label></div>
-        </div>
-      </div>
+      <div id="" class="confirm">¿Estás seguro que deseas eliminar esta persona?</div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="app.addClient();">Guardar</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="app.delUser();">Sí</button>
       </div>
     </div>
   </div>

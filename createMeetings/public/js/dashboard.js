@@ -74,6 +74,24 @@ var app = {
 	  			if(app.model.meetings[key]['tech']['laser']){
 	  				document.getElementById('laser').checked = true;
 	  			}
+	  			if(app.model.meetings[key]['tech']['vc']){
+	  				document.getElementById('vc').checked = true;
+	  			}
+	  			if(app.model.meetings[key]['tipo'] === 'regular'){
+	  				document.getElementById('regmeet').checked = true;
+	  			}
+	  			else{
+	  				document.getElementById('vipmeet').checked = true;
+	  			}
+	  			if(app.model.meetings[key]['food']['food'] != 'no'){
+	  				document.getElementById('detalles').style.display = 'block';
+	  				document.getElementById('sifood').checked = true;
+	  				document.getElementById('comida').value = app.model.meetings[key]['food']['food'];
+	  			}
+	  			else{
+	  				document.getElementById('detalles').style.display = 'none';
+	  				document.getElementById('nofood').checked = true;
+	  			}
   				document.getElementById('brochures').value = app.model.meetings[key]['mat']['brochures'];
   				document.getElementById('brochurep').value = app.model.meetings[key]['mat']['brochurep'];
   				document.getElementById('notebook').value = app.model.meetings[key]['mat']['notebook'];
@@ -114,11 +132,45 @@ var app = {
   		else{
   			hora3 = tim+':'+testfin[1];
   		}
-  		var m = app.monthyear.indexOf(fecha[1])+1;
+  		switch(fecha[1]){
+		  case 'Jan':
+		  	m = '01';
+		    break;
+		  case 'Feb':
+		  	m = '02';
+		    break;
+		  case 'Mar':
+		  	m = '03';       
+		    break;
+		  case 'Apr':
+		    m = '04';
+		    break;
+		  case 'May':
+		  	m = '05';
+		    break;
+		  case 'Jun':
+		  	m = '06';
+		    break;
+		  case 'Jul':
+		  	m = '07';       
+		    break;
+		  case 'Aug':
+		  	m = '08';
+		    break;
+		  case 'Sep':
+		  	m = '09';
+		    break;
+		  case 'Oct':
+		  	m = '10';
+		    break;
+		  case 'Nov':
+		  	m = '11';       
+		    break;
+		  case 'Dec':
+		  	m = '12';
+		    break;  
+		}
   		var d = fecha[2];
-  		if (m < 10) {
-  			m = '0'+m;
-  		}
   		var upd = m+'-'+d+'-'+fecha[3];
   		$('#datepicker').datepicker('update', upd);
   		$('#timepicker').timepicker('setTime', hora+' '+amopm);
@@ -144,8 +196,8 @@ var app = {
 		var dato = data.id
 		var args = dato.split("_");
 		$('#invited').attr('value',args[1].split(/(?=[A-Z])/).join(" "));
-		//$('.ocult').attr('id',args[0].split(/(?=[A-Z])/).join(" "));
-		$('.ocult').attr('id',args[0]);
+		$('.ocult').attr('id',args[0].split(/(?=[A-Z])/).join(" "));
+		app.addClient();
 	},
 
 	addClient: function(){
@@ -183,6 +235,9 @@ var app = {
 		document.getElementById('video').checked = false;
 		document.getElementById('sound').checked = false;
 		document.getElementById('laser').checked = false;
+		document.getElementById('vc').checked = false;
+		document.getElementById('sifood').checked = false;
+		document.getElementById('nofood').checked = false;
 		document.getElementById('brochures').value = 0;
 		document.getElementById('brochurep').value = 0;
 		document.getElementById('notebook').value = 0;
@@ -206,8 +261,8 @@ var app = {
 
 	viewUser: function(data){
 		var users = $('#mydata');
-		var client = data.id.split('_')[0];
-		var user = data.id.split('_')[1]; 
+		var client = data.id.split('_')[0].split(/(?=[A-Z])/).join(" ");
+		var user = data.id.split('_')[1].split(/(?=[A-Z])/).join(" "); 
 		users.html('');
 		var codigo = '<table class="table table-bordered" id="guests2">';
 				codigo += '<tbody>';
@@ -238,8 +293,8 @@ var app = {
 
 	delUser: function(){
 		var datos = document.getElementsByClassName('confirm')[0].id;
-		var key = datos.split('_')[0].split(/(?=[A-Z])/).join(" ");
-		var key2 = datos.split('_')[1].split(/(?=[A-Z])/).join(" ");
+		var key = datos.split('_')[0].replace('-',' ');
+		var key2 = datos.split('_')[1].replace('-',' ');
 		var index = -1;
 		for(var i=0; i<app.modelMeet['users'].length; i++){
 			if (app.modelMeet['users'][i]['Nombre'] === key2 && app.modelMeet['users'][i]['Cliente'] === key) {
@@ -266,8 +321,8 @@ var app = {
 		for(var i=0; i<app.modelMeet['users'].length; i++){
 			codigo += '<div class="input-group">';
 				codigo += '<span class="input-group-addon"><img src="img/social.svg" height="20px"></span>';
-				if (app.model.clients[app.modelMeet['users'][i]['Cliente']][app.modelMeet['users'][i]['Nombre']]['Caract'] != '') {
-					codigo += '<input type="text" class="form-control" value="'+app.modelMeet['users'][i]['Nombre']+' ('+app.model.clients[app.modelMeet['users'][i]['Cliente']][app.modelMeet['users'][i]['Nombre']]['Caract']+')" style="width: 80%;" id="" disabled="">';
+				if (app.modelMeet['users'][i]['Caract'] != '') {
+					codigo += '<input type="text" class="form-control" value="'+app.modelMeet['users'][i]['Nombre']+' ('+app.modelMeet['users'][i]['Caract']+')" style="width: 80%;" id="" disabled="">';
 				}
 				else{
 
@@ -303,8 +358,9 @@ var app = {
 		app.modelMeet['fecha'] = document.getElementById('datepicker').value;
 		app.modelMeet['fecha'] += ' '+document.getElementById('timepicker').value+' - ';
 		app.modelMeet['fecha'] += document.getElementById('timepicker2').value;
-		app.modelMeet['tech'] = {video:0,sound:0,laser:0,comment:''};
+		app.modelMeet['tech'] = {video:0,sound:0,laser:0,vc:0,comment:''};
 		app.modelMeet['mat'] = {brochures:0,brochurep:0,notebook:0,pens:0,magazine:0};
+		app.modelMeet['food'] = {food:'No'};
 		if (document.getElementById('video').checked) {
 	    	app.modelMeet['tech']['video'] = 1;
 	    }
@@ -313,6 +369,18 @@ var app = {
 	    }
 	    if (document.getElementById('laser').checked) {
 	    	app.modelMeet['tech']['laser'] = 1;
+	    }
+	    if (document.getElementById('vc').checked) {
+	    	app.modelMeet['tech']['vc'] = 1;
+	    }
+	    if (document.getElementById('vipmeet').checked) {
+	    	app.modelMeet['tipo'] = 'vip';
+	    }
+	    if (document.getElementById('regmeet').checked) {
+	    	app.modelMeet['tipo'] = 'regular';
+	    }
+	    if (document.getElementById('sifood').checked) {
+	    	app.modelMeet['food']['food'] = document.getElementById('comida').value;
 	    }
     	app.modelMeet['mat']['brochures'] = document.getElementById('brochures').value;
     	app.modelMeet['mat']['brochurep'] = document.getElementById('brochurep').value;
@@ -324,6 +392,13 @@ var app = {
 		users.html('');
 		var codigo = '<div id="" class="confirmmeet">¿Deseas programar esta reunión?</div><br>';
 			codigo += '<div>Título: '+app.modelMeet['titulo']+'</div>';
+			codigo += '<div>Tipo: ';
+			if (app.modelMeet['tipo'] === 'vip') {
+				codigo += 'V.I.P.</div>';
+			}
+			if (app.modelMeet['tipo'] === 'regular') {
+				codigo += 'Regular</div>';
+			}
 			codigo += '<div>Sala: '+app.modelMeet['sala']+'</div>';
 			codigo += '<div>Fecha: '+app.modelMeet['fecha']+'</div>';
 			codigo += '<div>Tecnología: </div>';
@@ -335,6 +410,9 @@ var app = {
 				}
 				if (app.modelMeet['tech']['laser']) {
 					codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Apuntador</div>';
+				}
+				if (app.modelMeet['tech']['vc']) {
+					codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Equipos de video conferencia</div>';
 				}
 				if (app.modelMeet['tech']['comment']) {
 					codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+app.modelMeet['tech']['comment']+'</div>';
@@ -355,17 +433,21 @@ var app = {
 				if (app.modelMeet['mat']['magazine']) {
 					codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Revistas: '+app.modelMeet['mat']['magazine']+'</div>';
 				}
+			codigo += '<div>Comida:</div>';
+			codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+app.modelMeet['food']['food']+'</div>';
 			codigo += '<div>Invitados:</div>';
 			codigo += '<table class="table table-bordered" id="guests">';
 				codigo += '<tbody>';
 					codigo += '<tr>';
 						codigo += '<th>Empresa</th>';
 						codigo += '<th>Nombre</th>';
+						codigo += '<th>Eliminar</th>';
 					codigo += '</tr>';
 				for (var i=0; i<app.modelMeet['users'].length; i++) {
-					codigo += '<tr onclick="app.idConfirm(this)" id="'+app.modelMeet['users'][i]['Cliente'].replace(' ','-')+'_'+app.modelMeet['users'][i]['Nombre'].replace(' ','-')+'" data-toggle="modal" data-target="#myModal3">';
+					codigo += '<tr>';
 						codigo += '<td>'+app.modelMeet['users'][i]['Cliente']+'</td>';
 						codigo += '<td>'+app.modelMeet['users'][i]['Nombre']+'</td>';
+						codigo += '<td><i class="fa fa-trash" onclick="app.idConfirm(this)" id="'+app.modelMeet['users'][i]['Cliente'].replace(' ','-')+'_'+app.modelMeet['users'][i]['Nombre'].replace(' ','-')+'" style="margin-left:40%;" data-toggle="modal" data-target="#myModal3"></i></td>';
 					codigo += '</tr>';
 				}
 				codigo += '</tbody>';
@@ -387,9 +469,10 @@ var app = {
 						codigo += '<th>Fecha</th>';
 						codigo += '<th>Hora</th>';
 						codigo += '<th>Título</th>';
+						codigo += '<th>Eliminar</th>';
 					codigo += '</tr>';
 				for (var key in app.model.meetings) {
-					codigo += '<tr onclick="app.confirmeet('+"'"+key+"'"+');" data-target="#myModal6" data-toggle="modal">';
+					codigo += '<tr>';
 						var dd = app.model.meetings[key]['fecha'].split(' ');
 						var datee = dd[0].split('/');
 						var dait = new Date(datee[2],datee[0]-1,datee[1]);
@@ -402,6 +485,7 @@ var app = {
 						}
 						codigo += '<td>'+dd[1]+' '+dd[2]+' - '+dd[4]+' '+dd[5]+'</td>';
 						codigo += '<td>'+app.model.meetings[key]['titulo']+'</td>';
+						codigo += '<td><i class="fa fa-trash" onclick="app.confirmeet('+"'"+key+"'"+');" style="margin-left:40%;" data-target="#myModal6" data-toggle="modal"></i></td>';
 					codigo += '</tr>';
 				}
 				codigo += '</tbody>';
@@ -467,6 +551,11 @@ var app = {
         document.getElementById('name-clients').value = '';
         document.getElementById('name-client').value = '';
         document.getElementById('email-client').value = '';
+        var dato = client.replace(' ','')+'_'+name.replace(' ','');
+		var args = dato.split("_");
+		$('#invited').attr('value',args[1].split(/(?=[A-Z])/).join(" "));
+		$('.ocult').attr('id',args[0].split(/(?=[A-Z])/).join(" "));
+		app.addClient();
     },
 
 	saveFirebase: function(client,name,email){

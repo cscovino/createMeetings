@@ -9,6 +9,7 @@ var app = {
 		'fecha':'',
 		'tech':{},
 		'mat':{},
+		'food':{},
 		'users':[]
 	},
 
@@ -36,19 +37,13 @@ var app = {
 		var args = dato.split("_");
 		$('#invited').attr('value',args[1].split(/(?=[A-Z])/).join(" "));
 		$('.ocult').attr('id',args[0].split(/(?=[A-Z])/).join(" "));
+		app.addClient();
 	},
 
 	addClient: function(){
 		var aux = 0;
-		var type;
 		var user = document.getElementById('invited').value;
 		var client = document.getElementsByClassName('ocult')[0].id;
-		opts = document.getElementsByClassName('options');
-		for(var i=0; i<opts.length; i++){
-			if (opts[i].checked) {
-				type = opts[i].id;
-			}
-		}
 		if(user){
 			for(var i=0; i<app.modelMeet['users'].length; i++) {
 				if(app.modelMeet['users'][i]['Nombre'] === user && (app.modelMeet['users'][i]['Cliente'] === client || app.modelMeet['users'][i]['Cliente'] === client.replace(' ',''))){
@@ -64,7 +59,7 @@ var app = {
 				catch(err){
 					var car = app.model['clients'][client.replace(' ','')][user]['Caract'];
 				}
-				app.modelMeet['users'].push({'Nombre':user,'Cliente':client,'Caract':car,'Tipo':type});
+				app.modelMeet['users'].push({'Nombre':user,'Cliente':client,'Caract':car});
 			}
 			app.refreshMeeting();
 			app.refreshMeetingModal();
@@ -78,6 +73,11 @@ var app = {
 		document.getElementById('video').checked = false;
 		document.getElementById('sound').checked = false;
 		document.getElementById('laser').checked = false;
+		document.getElementById('vc').checked = false;
+		document.getElementById('sifood').checked = false;
+		document.getElementById('nofood').checked = false;
+		document.getElementById('vipmeet').checked = false;
+		document.getElementById('regmeet').checked = false;
 		document.getElementById('brochures').value = 0;
 		document.getElementById('brochurep').value = 0;
 		document.getElementById('notebook').value = 0;
@@ -155,8 +155,9 @@ var app = {
 		app.modelMeet['fecha'] = document.getElementById('datepicker').value;
 		app.modelMeet['fecha'] += ' '+document.getElementById('timepicker').value+' - ';
 		app.modelMeet['fecha'] += document.getElementById('timepicker2').value;
-		app.modelMeet['tech'] = {video:0,sound:0,laser:0,comment:''};
+		app.modelMeet['tech'] = {video:0,sound:0,laser:0,vc:0,comment:''};
 		app.modelMeet['mat'] = {brochures:0,brochurep:0,notebook:0,pens:0,magazine:0};
+		app.modelMeet['food'] = {food:'No'};
 		if (document.getElementById('video').checked) {
 	    	app.modelMeet['tech']['video'] = 1;
 	    }
@@ -166,16 +167,35 @@ var app = {
 	    if (document.getElementById('laser').checked) {
 	    	app.modelMeet['tech']['laser'] = 1;
 	    }
-	    app.modelMeet['mat']['brochures'] = document.getElementById('brochures').value;
-	    app.modelMeet['mat']['brochurep'] = document.getElementById('brochurep').value;
-	    app.modelMeet['mat']['notebook'] = document.getElementById('notebook').value;
-	    app.modelMeet['mat']['pens'] = document.getElementById('pens').value;
-	    app.modelMeet['mat']['magazine'] = document.getElementById('magazine').value;
+	    if (document.getElementById('vc').checked) {
+	    	app.modelMeet['tech']['vc'] = 1;
+	    }
+	    if (document.getElementById('vipmeet').checked) {
+	    	app.modelMeet['tipo'] = 'vip';
+	    }
+	    if (document.getElementById('regmeet').checked) {
+	    	app.modelMeet['tipo'] = 'regular';
+	    }
+	    if (document.getElementById('sifood').checked) {
+	    	app.modelMeet['food']['food'] = document.getElementById('comida').value;
+	    }
+    	app.modelMeet['mat']['brochures'] = document.getElementById('brochures').value;
+    	app.modelMeet['mat']['brochurep'] = document.getElementById('brochurep').value;
+    	app.modelMeet['mat']['notebook'] = document.getElementById('notebook').value;
+    	app.modelMeet['mat']['pens'] = document.getElementById('pens').value;
+    	app.modelMeet['mat']['magazine'] = document.getElementById('magazine').value;
 	    app.modelMeet['tech']['comment'] = document.getElementById('otros').value;
 		var users = $('#user-body');
 		users.html('');
 		var codigo = '<div id="" class="confirmmeet">¿Deseas programar esta reunión?</div><br>';
 			codigo += '<div>Título: '+app.modelMeet['titulo']+'</div>';
+			codigo += '<div>Tipo: ';
+			if (app.modelMeet['tipo'] === 'vip') {
+				codigo += 'V.I.P.</div>';
+			}
+			if (app.modelMeet['tipo'] === 'regular') {
+				codigo += 'Regular</div>';
+			}
 			codigo += '<div>Sala: '+app.modelMeet['sala']+'</div>';
 			codigo += '<div>Fecha: '+app.modelMeet['fecha']+'</div>';
 			codigo += '<div>Tecnología: </div>';
@@ -188,36 +208,43 @@ var app = {
 				if (app.modelMeet['tech']['laser']) {
 					codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Apuntador</div>';
 				}
+				if (app.modelMeet['tech']['vc']) {
+					codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Equipos de video conferencia</div>';
+				}
 				if (app.modelMeet['tech']['comment']) {
 					codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+app.modelMeet['tech']['comment']+'</div>';
 				}
 			codigo += '<div>Materiales POP:</div>';
-				if (app.modelMeet['mat']['brochures'] != 0) {
+				if (app.modelMeet['mat']['brochures']) {
 					codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Brochure Soutec: '+app.modelMeet['mat']['brochures']+'</div>';
 				}
-				if (app.modelMeet['mat']['brochurep'] != 0) {
+				if (app.modelMeet['mat']['brochurep']) {
 					codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Brochure Proyecto U: '+app.modelMeet['mat']['brochurep']+'</div>';
 				}
-				if (app.modelMeet['mat']['notebook'] != 0) {
+				if (app.modelMeet['mat']['notebook']) {
 					codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cuadernos Soutec: '+app.modelMeet['mat']['notebook']+'</div>';
 				}
-				if (app.modelMeet['mat']['pens'] != 0) {
+				if (app.modelMeet['mat']['pens']) {
 					codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bolígrafos: '+app.modelMeet['mat']['pens']+'</div>';
 				}
-				if (app.modelMeet['mat']['magazine'] != 0) {
+				if (app.modelMeet['mat']['magazine']) {
 					codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Revistas: '+app.modelMeet['mat']['magazine']+'</div>';
 				}
+			codigo += '<div>Comida:</div>';
+			codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+app.modelMeet['food']['food']+'</div>';
 			codigo += '<div>Invitados:</div>';
 			codigo += '<table class="table table-bordered" id="guests">';
 				codigo += '<tbody>';
 					codigo += '<tr>';
 						codigo += '<th>Empresa</th>';
 						codigo += '<th>Nombre</th>';
+						codigo += '<th>Eliminar</th>';
 					codigo += '</tr>';
 				for (var i=0; i<app.modelMeet['users'].length; i++) {
-					codigo += '<tr onclick="app.idConfirm(this)" id="'+app.modelMeet['users'][i]['Cliente'].replace(' ','-')+'_'+app.modelMeet['users'][i]['Nombre'].replace(' ','-')+'" data-toggle="modal" data-target="#myModal3">';
+					codigo += '<tr>';
 						codigo += '<td>'+app.modelMeet['users'][i]['Cliente']+'</td>';
 						codigo += '<td>'+app.modelMeet['users'][i]['Nombre']+'</td>';
+						codigo += '<td><i class="fa fa-trash" onclick="app.idConfirm(this)" id="'+app.modelMeet['users'][i]['Cliente'].replace(' ','-')+'_'+app.modelMeet['users'][i]['Nombre'].replace(' ','-')+'" style="margin-left:40%;" data-toggle="modal" data-target="#myModal3"></i></td>';
 					codigo += '</tr>';
 				}
 				codigo += '</tbody>';
@@ -288,6 +315,11 @@ var app = {
         document.getElementById('name-client').value = '';
         document.getElementById('email-client').value = '';
         document.getElementById('comment').value = '';
+        var dato = client.replace(' ','')+'_'+name.replace(' ','');
+		var args = dato.split("_");
+		$('#invited').attr('value',args[1].split(/(?=[A-Z])/).join(" "));
+		$('.ocult').attr('id',args[0].split(/(?=[A-Z])/).join(" "));
+		app.addClient();
     },
 
 	saveFirebase: function(client,name,email,caract){
@@ -324,6 +356,13 @@ var app = {
 		firebase.database().ref('meetings').push(app.modelMeet);
 		var color = 0;
 		var codigo = '<div>Título: '+app.modelMeet['titulo']+'</div>';
+			codigo += '<div>Tipo: ';
+			if (app.modelMeet['tipo'] === 'vip') {
+				codigo += 'V.I.P.</div>';
+			}
+			if (app.modelMeet['tipo'] === 'regular') {
+				codigo += 'Regular</div>';
+			}
 			codigo += '<div>Sala: '+app.modelMeet['sala']+'</div>';
 			codigo += '<div>Fecha: '+app.modelMeet['fecha']+'</div>';
 			codigo += '<div>Tecnología: </div>';
@@ -335,6 +374,9 @@ var app = {
 				}
 				if (app.modelMeet['tech']['laser']) {
 					codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Apuntador</div>';
+				}
+				if (app.modelMeet['tech']['vc']) {
+					codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Equipos de video conferencia</div>';
 				}
 				if (app.modelMeet['tech']['comment']) {
 					codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+app.modelMeet['tech']['comment']+'</div>';
@@ -355,6 +397,8 @@ var app = {
 				if (app.modelMeet['mat']['magazine'] != 0) {
 					codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Revistas: '+app.modelMeet['mat']['magazine']+'</div>';
 				}
+			codigo += '<div>Comida:</div>';
+			codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+app.modelMeet['food']['food']+'</div>';
 			codigo += '<div>Invitados:</div>';
 			codigo += '<table style="color:#383838;">';
 				codigo += '<tbody>';

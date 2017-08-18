@@ -44,13 +44,13 @@
       <label>Tipo de reunión:</label>
         <div>
           <label>
-            <input type="radio" id="vipmeet" value="si" name="optionsmeet">
+            <input type="radio" id="vipmeet" value="si" name="optionsmeet" onclick="document.getElementById('divfood').style.display = 'block';">
             V.I.P.
           </label>
         </div> 
         <div>
           <label>
-            <input type="radio" id="regmeet" value="si" name="optionsmeet">
+            <input type="radio" id="regmeet" value="si" name="optionsmeet" onclick="document.getElementById('divfood').style.display = 'none';">
             Regular
           </label>
         </div> 
@@ -101,8 +101,6 @@
     <br>
     <div class="input-group">
       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal12">Persona nueva</button>
-      <button id="borrar-button" type="button" class="btn btn-default" onclick="app.delMeet();" disabled="">Borrar</button>
-      <button id="guardar-button" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" disabled="" onclick="app.refreshMeetingModal();">Guardar</button>
     </div>
   </div>
 </div>
@@ -187,7 +185,7 @@
     </div>
   </div>
   <br>
-  <div class="form-group">
+  <div class="form-group" id="divfood" style="display:none;">
     <label>Se requiere comida:</label>
     <div>
       <div>
@@ -208,8 +206,13 @@
       <textarea class="form-control" rows="2" style="width:60%;" placeholder="Ingrese comentario..." id="comida"></textarea>
     </div>
   </div>
+  <br>
+  <div class="input-group">
+    <button id="borrar-button" type="button" class="btn btn-default" onclick="app.delMeet();" disabled="">Borrar Todo</button>
+    <button id="guardar-button" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" disabled="" onclick="app.refreshMeetingModal();">Enviar</button>
+  </div>
 </div>
-</div> 
+</div>
 
 <!-- ###################################################################################################### -->
 <!-- #######################################  Modal ####################################################### -->
@@ -225,7 +228,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="app.sendMeet();">Guardar</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="app.sendMeet();">Enviar</button>
       </div>
     </div>
   </div>
@@ -310,7 +313,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" onclick="app.saveName();" data-dismiss="modal">Guardar</button>
+        <button type="button" class="btn btn-primary" onclick="app.saveName();" data-dismiss="modal">Agregar</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
       </div>
     </div>

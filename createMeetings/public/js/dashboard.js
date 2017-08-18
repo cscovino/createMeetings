@@ -433,8 +433,14 @@ var app = {
 				if (app.modelMeet['mat']['magazine']) {
 					codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Revistas: '+app.modelMeet['mat']['magazine']+'</div>';
 				}
-			codigo += '<div>Comida:</div>';
-			codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+app.modelMeet['food']['food']+'</div>';
+			if (app.modelMeet['food']['food'] != 'No') {
+				codigo += '<div>Sí requiere comida.</div>';
+				codigo += '<div>Detalles de interés:</div>';
+				codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+app.modelMeet['food']['food']+'</div>';
+			}
+			else{
+				codigo += '<div>No requiere comida.</div>';
+			}
 			codigo += '<div>Invitados:</div>';
 			codigo += '<table class="table table-bordered" id="guests">';
 				codigo += '<tbody>';
@@ -576,11 +582,6 @@ var app = {
   		var h2 = app.modelMeet['fecha'].split(' ');
   		var tit = app.modelMeet['titulo'];
   		var fec = app.modelMeet['fecha'].split(' ')[0];
-		app.modelMeet['titulo'] = document.getElementById('title-meet').value;
-		app.modelMeet['sala'] = document.getElementById('room-meet').value;
-		app.modelMeet['fecha'] = document.getElementById('datepicker').value;
-		app.modelMeet['fecha'] += ' '+document.getElementById('timepicker').value+' - ';
-		app.modelMeet['fecha'] += document.getElementById('timepicker2').value;
 		for(var key in app.model.meetings){
   			if (app.model.meetings[key]['titulo']===tit) {
   				if (app.model.meetings[key]['fecha'].split(' ')[0]===fec) {
@@ -595,8 +596,82 @@ var app = {
   			}
   		}
 		firebase.database().ref('meetings').push(app.modelMeet);
-		app.delMeet();
+		var color = 0;
+		var codigo = '<div>Título: '+app.modelMeet['titulo']+'</div>';
+			codigo += '<div>Tipo: ';
+			if (app.modelMeet['tipo'] === 'vip') {
+				codigo += 'V.I.P.</div>';
+			}
+			if (app.modelMeet['tipo'] === 'regular') {
+				codigo += 'Regular</div>';
+			}
+			codigo += '<div>Sala: '+app.modelMeet['sala']+'</div>';
+			codigo += '<div>Fecha: '+app.modelMeet['fecha']+'</div>';
+			codigo += '<div>Tecnología: </div>';
+				if (app.modelMeet['tech']['video']) {
+					codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Video Beam</div>';
+				}
+				if (app.modelMeet['tech']['sound']) {
+					codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cornetas</div>';
+				}
+				if (app.modelMeet['tech']['laser']) {
+					codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Apuntador</div>';
+				}
+				if (app.modelMeet['tech']['vc']) {
+					codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Equipos de video conferencia</div>';
+				}
+				if (app.modelMeet['tech']['comment']) {
+					codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+app.modelMeet['tech']['comment']+'</div>';
+				}
+			codigo += '<div>Materiales POP:</div>';
+				if (app.modelMeet['mat']['brochures'] != 0) {
+					codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Brochure Soutec: '+app.modelMeet['mat']['brochures']+'</div>';
+				}
+				if (app.modelMeet['mat']['brochurep'] != 0) {
+					codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Brochure Proyecto U: '+app.modelMeet['mat']['brochurep']+'</div>';
+				}
+				if (app.modelMeet['mat']['notebook'] != 0) {
+					codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cuadernos Soutec: '+app.modelMeet['mat']['notebook']+'</div>';
+				}
+				if (app.modelMeet['mat']['pens'] != 0) {
+					codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bolígrafos: '+app.modelMeet['mat']['pens']+'</div>';
+				}
+				if (app.modelMeet['mat']['magazine'] != 0) {
+					codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Revistas: '+app.modelMeet['mat']['magazine']+'</div>';
+				}
+			if (app.modelMeet['food']['food'] != 'No') {
+				codigo += '<div>Sí requiere comida.</div>';
+				codigo += '<div>Detalles de interés:</div>';
+				codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+app.modelMeet['food']['food']+'</div>';
+			}
+			else{
+				codigo += '<div>No requiere comida.</div>';
+			}
+			codigo += '<div>Invitados:</div>';
+			codigo += '<table style="color:#383838;">';
+				codigo += '<tbody>';
+					codigo += '<tr>';
+						codigo += '<th style="background:#395062;color:#fff;">Empresa</th>';
+						codigo += '<th style="background:#395062;color:#fff;">Nombre</th>';
+					codigo += '</tr>';
+				for (var i=0; i<app.modelMeet['users'].length; i++) {
+					if (color) {
+					codigo += '<tr style="background:#eaeaea;">';
+						color = 0;	
+					}
+					else{
+					codigo += '<tr>';
+						color = 1;
+					}
+						codigo += '<td>'+app.modelMeet['users'][i]['Cliente']+'</td>';
+						codigo += '<td>'+app.modelMeet['users'][i]['Nombre']+'</td>';
+					codigo += '</tr>';
+				}
+				codigo += '</tbody>';
+			codigo += '</table>';
+		emailjs.send("gmail","meetings",{message_html: codigo});
 		alert('Reunión guardada');
+		app.delMeet();
 	},
 
 	refreshClient: function(dat){

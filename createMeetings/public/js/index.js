@@ -83,6 +83,7 @@ var app = {
 		document.getElementById('notebook').value = 0;
 		document.getElementById('pens').value = 0;
 		document.getElementById('magazine').value = 0;
+		document.getElementById('divfood').style.display = 'none';
 		var users = $('#info-meet-data');
 		users.html('');
 		var codigo = '';
@@ -230,8 +231,14 @@ var app = {
 				if (app.modelMeet['mat']['magazine']) {
 					codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Revistas: '+app.modelMeet['mat']['magazine']+'</div>';
 				}
-			codigo += '<div>Comida:</div>';
-			codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+app.modelMeet['food']['food']+'</div>';
+			if (app.modelMeet['food']['food'] != 'No') {
+				codigo += '<div>Sí requiere comida.</div>';
+				codigo += '<div>Detalles de interés:</div>';
+				codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+app.modelMeet['food']['food']+'</div>';
+			}
+			else{
+				codigo += '<div>No requiere comida.</div>';
+			}
 			codigo += '<div>Invitados:</div>';
 			codigo += '<table class="table table-bordered" id="guests">';
 				codigo += '<tbody>';
@@ -397,8 +404,14 @@ var app = {
 				if (app.modelMeet['mat']['magazine'] != 0) {
 					codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Revistas: '+app.modelMeet['mat']['magazine']+'</div>';
 				}
-			codigo += '<div>Comida:</div>';
-			codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+app.modelMeet['food']['food']+'</div>';
+			if (app.modelMeet['food']['food'] != 'No') {
+				codigo += '<div>Sí requiere comida.</div>';
+				codigo += '<div>Detalles de interés:</div>';
+				codigo += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+app.modelMeet['food']['food']+'</div>';
+			}
+			else{
+				codigo += '<div>No requiere comida.</div>';
+			}
 			codigo += '<div>Invitados:</div>';
 			codigo += '<table style="color:#383838;">';
 				codigo += '<tbody>';

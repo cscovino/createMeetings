@@ -735,7 +735,7 @@ var app = {
 				}
 			}
 			var mVarE = dateVar[4].split(':')[1];
-			var ttE = app.model.meetings[key]['titulo'];
+			var ttE = app.model.meetings[key]['sala']+' - '+app.model.meetings[key]['titulo'];
 			var eventsE = {
 				title: ttE,
 				start: new Date(yearVar,monthVar-1,dayVar,hVar,mVar),

@@ -48,19 +48,20 @@ var app = {
 		    week: 'week',
 		    day: 'day'
 		  },
+		  allDaySlot: false,
 		  editable: false,
 		  draggable: false,
 		  eventClick: function(calEvent,jsEvent,view){
-				var defaultDuration = moment.duration($('#calendar').fullCalendar('option', 'defaultTimedEventDuration'));
-				var end = calEvent.end || calEvent.start.clone().add(defaultDuration);
-				app.editMeet(calEvent,end);
+				//var defaultDuration = moment.duration($('#calendar').fullCalendar('option', 'defaultTimedEventDuration'));
+				//var end = calEvent.end || calEvent.start.clone().add(defaultDuration);
+				app.editMeet(calEvent);
 			},
 		});
 
 		app.refreshCalendar();
   	},
 
-  	editMeet: function(calEvent,end){
+  	editMeet: function(calEvent){
   		document.getElementById('title-meet').value = calEvent.title;
   		for(var key in app.model.meetings){
   			if(app.model.meetings[key]['titulo'] === calEvent.title){
@@ -68,14 +69,26 @@ var app = {
 	  			if(app.model.meetings[key]['tech']['video']){
 	  				document.getElementById('video').checked = true;
 	  			}
+	  			else{
+	  				document.getElementById('video').checked = false;
+	  			}
 	  			if(app.model.meetings[key]['tech']['sound']){
 	  				document.getElementById('sound').checked = true;
+	  			}
+	  			else{
+	  				document.getElementById('sound').checked = false;
 	  			}
 	  			if(app.model.meetings[key]['tech']['laser']){
 	  				document.getElementById('laser').checked = true;
 	  			}
+	  			else{
+	  				document.getElementById('laser').checked = false;
+	  			}
 	  			if(app.model.meetings[key]['tech']['vc']){
 	  				document.getElementById('vc').checked = true;
+	  			}
+	  			else{
+	  				document.getElementById('vc').checked = false;
 	  			}
 	  			if(app.model.meetings[key]['tipo'] === 'regular'){
 	  				document.getElementById('regmeet').checked = true;
@@ -83,7 +96,7 @@ var app = {
 	  			else{
 	  				document.getElementById('vipmeet').checked = true;
 	  			}
-	  			if(app.model.meetings[key]['food']['food'] != 'no'){
+	  			if(app.model.meetings[key]['food']['food'] != 'No'){
 	  				document.getElementById('detalles').style.display = 'block';
 	  				document.getElementById('sifood').checked = true;
 	  				document.getElementById('comida').value = app.model.meetings[key]['food']['food'];
@@ -100,10 +113,10 @@ var app = {
 	  			document.getElementById('otros').value = app.model.meetings[key]['tech']['comment'];
   			}
   		}
-  		var fecha = end['_i'].toDateString().split(' ');
-  		var test = end['_i'].toString().split(' ')[4].split(':');
-  		var fechafin = end['_d'].toDateString().split(' ');
-  		var testfin = end['_d'].toString().split(' ')[4].split(':');
+  		var fecha = calEvent.start['_d'].toDateString().split(' ');
+  		var test = calEvent.start['_d'].toString().split(' ')[4].split(':');
+  		var fechafin = calEvent.end['_d'].toDateString().split(' ');
+  		var testfin = calEvent.end['_d'].toString().split(' ')[4].split(':');
   		var amopm = 'AM';
   		var amopm2 = 'AM';
   		var hora,hora3,hora4;
@@ -706,9 +719,6 @@ var app = {
 			var yearVar = dateVar[0].split("/")[2];
 			var monthVar = dateVar[0].split("/")[0];
 			var dayVar = dateVar[0].split("/")[1];
-			var yearVarE = dateVar[4].split("/")[2];
-			var monthVarE = dateVar[4].split("/")[0];
-			var dayVarE = dateVar[4].split("/")[1];
 			var hVar = dateVar[1].split(':')[0];
 			if (dateVar[2] === 'PM') {
 				hVar = +hVar + 12;
@@ -717,19 +727,19 @@ var app = {
 				}
 			}
 			var mVar = dateVar[1].split(':')[1];
-			var hVarE = dateVar[5].split(':')[0];
-			if (dateVar[6] === 'PM') {
+			var hVarE = dateVar[4].split(':')[0];
+			if (dateVar[5] === 'PM') {
 				hVarE = +hVarE + 12;
 				if (hVarE === 24) {
 					hVarE = 00;
 				}
 			}
-			var mVarE = dateVar[5].split(':')[1];
+			var mVarE = dateVar[4].split(':')[1];
 			var ttE = app.model.meetings[key]['titulo'];
 			var eventsE = {
 				title: ttE,
 				start: new Date(yearVar,monthVar-1,dayVar,hVar,mVar),
-				end: new Date(yearVarE,monthVarE-1,dayVarE,hVarE,mVarE),
+				end: new Date(yearVar,monthVar-1,dayVar,hVarE,mVarE),
 				allDay: false,
 				backgroundColor: "#0073b7",
 				borderColor :"#0073b7",

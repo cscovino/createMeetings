@@ -97,7 +97,6 @@ var app = {
 		document.getElementById('guardar-button').disabled = true;
 		document.getElementById('borrar-button').disabled = true;
 		app.modelMeet = {'titulo':'','sala':'','fecha':'','tech':{},'mat':{},'users':[]};
-		app.refreshMeetingModal();
 	},
 
 	delUser: function(){

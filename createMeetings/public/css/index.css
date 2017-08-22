@@ -103,3 +103,35 @@ input[type='text'] {
 	margin-left: 10%;
 	width:80%;
 }
+#brochures{
+	margin-left:10.1%;
+}
+#brochurep{
+	margin-left:4.1%;
+}
+#notebook{
+	margin-left:7.6%;
+}
+#pens{
+	margin-left:19.5%;
+}
+#magazine{
+	margin-left:21.9%;
+}
+@media screen and (min-width: 1400px){	
+	#brochures{
+		margin-left:10%;
+	}
+	#brochurep{
+		margin-left:4.9%;
+	}
+	#notebook{
+		margin-left:8%;
+	}
+	#pens{
+		margin-left:18%;
+	}
+	#magazine{
+		margin-left:20%;
+	}
+}

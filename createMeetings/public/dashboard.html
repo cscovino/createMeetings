@@ -26,6 +26,8 @@
     <a class="logo" style="margin-left:1.5%;"><img src="img/soutec.png" height="30px"></a>
     <nav class="navbar navbar-static-top">
       <div class="navbar-custom-menu">
+        <a href="" class="header-button" data-toggle="modal" data-target="#myModal19" id="user-button" title="Precargar reunión"><img src="img/square.png"></a>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <a href="" class="header-button" data-toggle="modal" data-target="#myModal9" id="user-button" title="Pedidos"><img src="img/list.svg" height="25px"></a>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <a href="" class="header-button" data-toggle="modal" data-target="#myModal5" id="user-button" title="Clientes"><img src="img/people.svg" height="45px"></a>
@@ -464,6 +466,90 @@
 </div>
 <!-- ###################################################################################################### -->
 <!-- ###################################################################################################### -->
+
+<!-- ###################################################################################################### -->
+<!-- #####################################  Modal Cliente ################################################# -->
+<!-- ###################################################################################################### -->
+<div class="modal fade" id="myModal19" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel" style="color: #000;">Precargar reunión</h4>
+      </div>
+      <div id="newmeet1" class="modal-body">      
+        <div class="form-group" style="width: 62.5%;">
+          <label>Título de la reunión:</label>
+          <input type="text" class="form-control" placeholder="Coloque el título de la reunión..." style="width:100%;" id="title-meet1" value="">
+        </div>
+        <div class="form-group" style="width: 62.5%;">
+          <label>Sala:</label>
+          <input type="text" class="form-control" placeholder="Coloque la sala..." style="width:100%;" id="room-meet1" value="">
+        </div>
+        <div class="form-group" style="width: 62.5%;">
+          <label>Fecha:</label>
+          <div class="input-group date">
+            <div class="input-group-addon">
+              <i class="fa fa-calendar"></i>
+            </div>
+            <input type="text" class="form-control pull-right" id="datepicker2">
+          </div>
+        </div>
+        <div class="bootstrap-timepicker" style="width: 30%;float:left;margin-right:2%;">
+          <div class="form-group">
+            <label>Inicio:</label>
+            <div class="input-group date">
+              <div class="input-group-addon">
+                <i class="fa fa-clock-o"></i>
+              </div>
+              <input type="text" class="form-control" id="timepicker3">
+            </div>
+          </div>
+        </div>
+        <div class="bootstrap-timepicker" style="display:table-cell;width: 30%;">
+          <div class="form-group">
+            <label>Fin:</label>
+            <div class="input-group date">
+              <div class="input-group-addon">
+                <i class="fa fa-clock-o"></i>
+              </div>
+              <input type="text" class="form-control" id="timepicker4" style="width: 40%;">
+            </div>
+          </div>
+        </div>
+        <br>
+      </div>
+      <div class="modal-footer">
+        <button id="guardar-button" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal20">Enviar</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ###################################################################################################### -->
+<!-- ###################################################################################################### -->
+
+<!-- ###################################################################################################### -->
+<!-- #####################################  Modal Cliente ################################################# -->
+<!-- ###################################################################################################### -->
+<div class="modal fade" id="myModal20" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel" style="color: #000;">Confirmar</h4>
+      </div>
+      <div id="" class="confirm">¿Estás seguro que deseas precargar esta información?</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="app.preLoad();">Sí</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ###################################################################################################### -->
+<!-- ###################################################################################################### -->
+
 <footer>
   <img src="img/cuadritospq.png" height="100px" style="position:fixed;bottom:0;">
   <img src="img/cuadritospq.png" height="100px" style="position:fixed;bottom:0;left:330px;">

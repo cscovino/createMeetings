@@ -63,10 +63,20 @@ var app = {
 		app.refreshCalendar();
   	},
 
+  	preLoad: function(){
+  		var titulo = document.getElementById('title-meet1').value;
+  		var sala = document.getElementById('room-meet1').value;
+		var fecha = document.getElementById('datepicker2').value;
+		fecha += ' '+document.getElementById('timepicker3').value+' - ';
+		fecha += document.getElementById('timepicker4').value;
+		firebase.database().ref('temp').update({titulo:titulo,sala:sala,fecha:fecha});
+		 $('#myModal19').modal('hide');
+  	},
+
   	editMeet: function(calEvent){
-  		document.getElementById('title-meet').value = calEvent.title;
+  		document.getElementById('title-meet').value = calEvent.title.split('-')[1].substring(1);
   		for(var key in app.model.meetings){
-  			if(app.model.meetings[key]['titulo'] === calEvent.title){
+  			if(app.model.meetings[key]['titulo'] === calEvent.title.split('-')[1].substring(1)){
   				document.getElementById('room-meet').value = app.model.meetings[key]['sala'];
 	  			if(app.model.meetings[key]['tech']['video']){
 	  				document.getElementById('video').checked = true;
@@ -192,7 +202,7 @@ var app = {
   		$('#timepicker2').timepicker('setTime', hora3+' '+amopm2);
   		upd = upd.replace(/-/g,'/');
   		for(var key in app.model.meetings){
-  			if (app.model.meetings[key]['titulo']===calEvent.title) {
+  			if (app.model.meetings[key]['titulo']===calEvent.title.split('-')[1].substring(1)) {
   				if (app.model.meetings[key]['fecha'].split(' ')[0] === upd) {
   					var h1 = app.model.meetings[key]['fecha'].split(' ');
   					var hora1 = h1[1]+' '+h1[2];
@@ -864,10 +874,19 @@ firebase.auth().onAuthStateChanged(user => {
 $('#datepicker').datepicker({
   autoclose: true
 });
+$('#datepicker2').datepicker({
+  autoclose: true
+});
 $("#timepicker").timepicker({
   showInputs: false
 });
 $("#timepicker2").timepicker({
+  showInputs: false
+});
+$("#timepicker3").timepicker({
+  showInputs: false
+});
+$("#timepicker4").timepicker({
   showInputs: false
 });
 

@@ -3,6 +3,8 @@ var app = {
 	model: {
 	},
 
+	first: 0,
+
 	modelMeet: {
 		'titulo':'',
 		'sala':'',
@@ -26,10 +28,27 @@ var app = {
         messagingSenderId: "888234651975"
   	},
 
+  	initApp: function(){
+  		document.getElementById('title-meet').value = app.model.temp['titulo'];
+  		document.getElementById('room-meet').value = app.model.temp['sala'];
+  		var fecha = app.model.temp['fecha'].split(' ');
+  		var hora = fecha[1];
+  		var amopm = fecha[2];
+  		var hora2 = fecha[4];
+  		var amopm2 = fecha[5];
+  		$('#datepicker').datepicker('update', fecha[0].replace('/','-'));
+  		$('#timepicker').timepicker('setTime', hora+' '+amopm);
+  		$('#timepicker2').timepicker('setTime', hora2+' '+amopm2);
+  	},
+
   	setSnap: function(snap){
   		app.model = snap;
   		app.refreshData();
   		app.loadClients();
+  		if(!app.first){
+  			app.initApp();
+  			app.first = 1;
+  		}
   	},
 
 	addUser: function(data){

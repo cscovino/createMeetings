@@ -49,7 +49,7 @@ var app = {
 		    day: 'day'
 		  },
           minTime: '8:00:00',
-          maxTime: '18:00:00',
+          //maxTime: '18:00:00',
 		  allDaySlot: false,
 		  editable: false,
 		  draggable: false,

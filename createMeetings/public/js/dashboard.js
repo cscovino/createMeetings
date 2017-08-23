@@ -17,12 +17,12 @@ var app = {
 	monthyear: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
 
 	firebaseConfig: {
-	    apiKey: "AIzaSyC50skbZWPdmbhMgSz9ulM8pBJ8r8F8lag",
-	    authDomain: "drinksmenu-ab56b.firebaseapp.com",
-	    databaseURL: "https://drinksmenu-ab56b.firebaseio.com",
-	    projectId: "drinksmenu-ab56b",
-	    storageBucket: "drinksmenu-ab56b.appspot.com",
-	    messagingSenderId: "495209622347"
+        apiKey: "AIzaSyCkQaGeVx7aqj0Gt2C15i8BdzSup3yNQuM",
+        authDomain: "reuniones-46a77.firebaseapp.com",
+        databaseURL: "https://reuniones-46a77.firebaseio.com",
+        projectId: "reuniones-46a77",
+        storageBucket: "reuniones-46a77.appspot.com",
+        messagingSenderId: "888234651975"
   	},
 
   	setSnap: function(snap){
@@ -48,6 +48,8 @@ var app = {
 		    week: 'week',
 		    day: 'day'
 		  },
+          minTime: '8:00:00',
+          maxTime: '18:00:00',
 		  allDaySlot: false,
 		  editable: false,
 		  draggable: false,

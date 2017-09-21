@@ -894,9 +894,9 @@ $("#timepicker4").timepicker({
   showInputs: false
 });
 
-if (navigator.appVersion.indexOf("Chrome/") != -1) {
-	document.getElementById('timepicker2').style.width = '100%';
-	document.getElementById('guardar-button').style.marginLeft = '10px';
+if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
+	document.getElementById('timepicker2').style.width = '40%';
+	document.getElementById('guardar-button').style.marginLeft = '2px';
 }
 
 setInterval(function(){app.refreshOrders();},59999);

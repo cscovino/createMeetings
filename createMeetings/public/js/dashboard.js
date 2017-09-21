@@ -127,6 +127,7 @@ var app = {
   		}
   		var fecha = calEvent.start['_d'].toDateString().split(' ');
   		var test = calEvent.start['_d'].toString().split(' ')[4].split(':');
+  		console.log(calEvent.end);
   		var fechafin = calEvent.end['_d'].toDateString().split(' ');
   		var testfin = calEvent.end['_d'].toString().split(' ')[4].split(':');
   		var amopm = 'AM';
@@ -743,8 +744,11 @@ var app = {
 			if (dateVar[5] === 'PM') {
 				hVarE = +hVarE + 12;
 				if (hVarE === 24) {
-					hVarE = 00;
+					hVarE = 12;
 				}
+			}
+			else if (hVarE === 12) {
+				hVarE = '00';
 			}
 			var mVarE = dateVar[4].split(':')[1];
 			var ttE = app.model.meetings[key]['sala']+' - '+app.model.meetings[key]['titulo'];

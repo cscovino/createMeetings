@@ -109,11 +109,8 @@
     <br>
     <div class="input-group">
       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal12">Persona nueva</button>
-      <button id="borrar-button" type="button" class="btn btn-default" onclick="app.delMeet();" disabled="">Borrar</button>
-      <button id="guardar-button" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" disabled="" onclick="app.refreshMeetingModal();">Guardar</button>
     </div>
   </div>
-  <br>
   <div id="mat-meet">
     <div class="form-group">
       <label>Tecnología requerida:</label>
@@ -215,6 +212,10 @@
         <label>Indique detalles de interés:</label>
         <textarea class="form-control" rows="2" style="width:60%;" placeholder="Ingrese comentario..." id="comida"></textarea>
       </div>
+    </div>
+    <div class="input-group">
+      <button id="borrar-button" type="button" class="btn btn-default" onclick="app.delMeet();" disabled="">Borrar</button>
+      <button id="guardar-button" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" disabled="" onclick="app.refreshMeetingModal();">Guardar</button>
     </div>
   </div>
 </div>

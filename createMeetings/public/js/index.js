@@ -518,6 +518,11 @@ $("#timepicker2").timepicker({
   showInputs: false
 });
 
+if (navigator.appVersion.indexOf("Chrome/") != -1) {
+	document.getElementById('timepicker2').style.width = '100%';
+	document.getElementById('guardar-button').style.marginLeft = '10px';
+}
+
 firebase.initializeApp(app.firebaseConfig);
 firebase.database().ref().on('value', function(snap){
 	if (snap.val() !== null) {

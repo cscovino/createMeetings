@@ -896,7 +896,7 @@ $("#timepicker4").timepicker({
 
 if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
 	document.getElementById('timepicker2').style.width = '40%';
-	document.getElementById('timepicker4').style.width = '40%';
+	document.getElementById('timepicker4').style.width = '38.5%';
 	document.getElementById('guardar-button').style.marginLeft = '2px';
 }
 

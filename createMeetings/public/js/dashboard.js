@@ -127,7 +127,6 @@ var app = {
   		}
   		var fecha = calEvent.start['_d'].toDateString().split(' ');
   		var test = calEvent.start['_d'].toString().split(' ')[4].split(':');
-  		console.log(calEvent.end);
   		var fechafin = calEvent.end['_d'].toDateString().split(' ');
   		var testfin = calEvent.end['_d'].toString().split(' ')[4].split(':');
   		var amopm = 'AM';

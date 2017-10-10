@@ -874,6 +874,8 @@ firebase.auth().onAuthStateChanged(user => {
   }
 });
 
+emailjs.init("user_PA0rFEnpQKHK1FTf69Kqm");
+
 $('#datepicker').datepicker({
   autoclose: true
 });

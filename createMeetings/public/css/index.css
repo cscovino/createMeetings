@@ -104,34 +104,22 @@ input[type='text'] {
 	width:80%;
 }
 #brochures{
-	margin-left:10.1%;
+	margin-left:40px;
 }
 #brochurep{
-	margin-left:4.1%;
+	margin-left:15px;
 }
 #notebook{
-	margin-left:7.6%;
+	margin-left:30px;
 }
 #pens{
-	margin-left:19.5%;
+	margin-left:81px;
 }
 #magazine{
-	margin-left:21.9%;
+	margin-left:91px;
 }
-@media screen and (min-width: 1400px){	
-	#brochures{
-		margin-left:10%;
-	}
-	#brochurep{
-		margin-left:4.9%;
-	}
-	#notebook{
-		margin-left:8%;
-	}
-	#pens{
-		margin-left:18%;
-	}
-	#magazine{
-		margin-left:20%;
+@media screen and (max-width: 1340px){	
+	#config{
+		display: none;
 	}
 }

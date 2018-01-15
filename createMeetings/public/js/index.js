@@ -54,8 +54,8 @@ var app = {
 	addUser: function(data){
 		var dato = data.id
 		var args = dato.split("_");
-		$('#invited').attr('value',args[1].split(/(?=[A-Z])/).join(" "));
-		$('.ocult').attr('id',args[0].split(/(?=[A-Z])/).join(" "));
+		$('#invited').attr('value',args[1].replace(/-/g,' '));
+		$('.ocult').attr('id',args[0].replace(/-/g,' '));
 		app.addClient();
 	},
 
@@ -299,8 +299,8 @@ var app = {
 				codigo += '<ul class="nav nav-list tree">';
 				codigo2 += '<ul class="nav nav-list tree">';
 				for(var key2 in app.model.clients[key]){
-					codigo += '<li id="'+key.replace(/ /g,'')+'_'+key2.replace(/ /g,'')+'" data-dismiss="modal" onclick="app.addUser(this);">&nbsp;&nbsp;&nbsp;<i class="fa fa-circle-o"></i>&nbsp;'+key2+'</li>';
-					codigo2 += '<li id="'+key.replace(/ /g,'')+'_'+key2.replace(/ /g,'')+'" data-toggle="modal" data-target="#myModal4" onclick="app.viewUser(this);">&nbsp;&nbsp;&nbsp;<i class="fa fa-circle-o"></i>&nbsp;'+key2+'</li>';
+					codigo += '<li id="'+key.replace(/ /g,'-')+'_'+key2.replace(/ /g,'-')+'" data-dismiss="modal" onclick="app.addUser(this);">&nbsp;&nbsp;&nbsp;<i class="fa fa-circle-o"></i>&nbsp;'+key2+'</li>';
+					codigo2 += '<li id="'+key.replace(/ /g,'-')+'_'+key2.replace(/ /g,'-')+'" data-toggle="modal" data-target="#myModal4" onclick="app.viewUser(this);">&nbsp;&nbsp;&nbsp;<i class="fa fa-circle-o"></i>&nbsp;'+key2+'</li>';
 				}
 				codigo += '</ul>';
 				codigo2 += '</ul>';
@@ -519,7 +519,6 @@ $("#timepicker2").timepicker({
 });
 
 if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
-	document.getElementById('timepicker2').style.width = '40%';
 	document.getElementById('guardar-button').style.marginLeft = '2px';
 }
 

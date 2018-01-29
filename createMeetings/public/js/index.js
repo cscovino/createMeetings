@@ -46,7 +46,7 @@ var app = {
   		app.refreshData();
   		app.loadClients();
   		if(!app.first){
-  			//app.initApp();
+  			app.initApp();
   			app.first = 1;
   		}
   	},

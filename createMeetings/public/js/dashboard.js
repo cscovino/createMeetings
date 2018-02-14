@@ -74,9 +74,9 @@ var app = {
   	},
 
   	editMeet: function(calEvent){
-  		document.getElementById('title-meet').value = calEvent.title.split('-')[1].substring(1);
+  		document.getElementById('title-meet').value = calEvent.title.split(/-(.+)/)[1].substring(1);
   		for(var key in app.model.meetings){
-  			if(app.model.meetings[key]['titulo'] === calEvent.title.split('-')[1].substring(1)){
+  			if(app.model.meetings[key]['titulo'] === calEvent.title.split(/-(.+)/)[1].substring(1)){
   				document.getElementById('room-meet').value = app.model.meetings[key]['sala'];
 	  			if(app.model.meetings[key]['tech']['video']){
 	  				document.getElementById('video').checked = true;
@@ -202,7 +202,7 @@ var app = {
   		$('#timepicker2').timepicker('setTime', hora3+' '+amopm2);
   		upd = upd.replace(/-/g,'/');
   		for(var key in app.model.meetings){
-  			if (app.model.meetings[key]['titulo']===calEvent.title.split('-')[1].substring(1)) {
+  			if (app.model.meetings[key]['titulo']===calEvent.title.split(/-(.+)/)[1].substring(1)) {
   				if (app.model.meetings[key]['fecha'].split(' ')[0] === upd) {
   					var h1 = app.model.meetings[key]['fecha'].split(' ');
   					var hora1 = h1[1]+' '+h1[2];

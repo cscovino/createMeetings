@@ -76,7 +76,7 @@ var app = {
 					var car = app.model['clients'][client][user]['Caract'];
 				}
 				catch(err){
-					var car = app.model['clients'][client.replace(' ','')][user]['Caract'];
+					var car = app.model['clients'][client.replace(/ /g,'')][user]['Caract'];
 				}
 				app.modelMeet['users'].push({'Nombre':user,'Cliente':client,'Caract':car});
 			}
@@ -340,10 +340,10 @@ var app = {
         document.getElementById('name-client').value = '';
         document.getElementById('email-client').value = '';
         document.getElementById('comment').value = '';
-        var dato = client.replace(' ','')+'_'+name.replace(' ','');
+        var dato = client.replace(/ /g,'^')+'_'+name.replace(/ /g,'');
 		var args = dato.split("_");
 		$('#invited').attr('value',args[1].split(/(?=[A-Z])/).join(" "));
-		$('.ocult').attr('id',args[0].split(/(?=[A-Z])/).join(" "));
+		$('.ocult').attr('id',args[0].split('^').join(" "));
 		app.addClient();
     },
 

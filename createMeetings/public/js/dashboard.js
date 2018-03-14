@@ -593,13 +593,13 @@ var app = {
 		var aux = 0;
 		for(var key in app.model.clients){
 			if (key === client) {
-				firebase.database().ref('clients').child(key).child(name).update({Bebida:[''],Coment:[''],Email:email});
+				firebase.database().ref('clients').child(key).child(name).update({Bebida:[''],Coment:[''],Email:email,Caract:''});
 				aux = 1;
 				break;
 			}
 		}
 		if (!aux) {
-			firebase.database().ref('clients').child(client).child(name).update({Bebida:[''],Coment:[''],Email:email});
+			firebase.database().ref('clients').child(client).child(name).update({Bebida:[''],Coment:[''],Email:email,Caract:''});
 		}
 	},
 
